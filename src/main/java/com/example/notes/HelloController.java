@@ -91,6 +91,9 @@ public class HelloController implements Initializable {
         list.getItems().setAll(list2);
     }
 
+    public static void deleteFromList(String s){
+
+    }
 
 
     public static ArrayList<Button> list2;
@@ -113,13 +116,14 @@ public class HelloController implements Initializable {
     }
 
 
+    public static void updateNotesFromList2(){
 
-    public static ArrayList<String> toStringList2(){
+        Param.notes.clear();
         ArrayList<String> arr= new ArrayList<>();
         for (int i = 0; i < list2.size()-1; i++) {
             arr.add(list2.get(i).getText());
         }
-        return arr;
+        Param.notes.addAll(arr);
     }
 
     public void onZoomed(){
