@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,6 +20,12 @@ import java.util.ResourceBundle;
 public class HelloController implements Initializable {
 
     @FXML
+    private MenuItem instructionButton;
+
+    @FXML
+    private MenuItem uploadButton;
+
+    @FXML
     private BorderPane borderPane;
 
     @FXML
@@ -26,6 +33,16 @@ public class HelloController implements Initializable {
 
     @FXML
     public  ListView<Button> list;
+
+    @FXML
+    void showInstructionWindow(ActionEvent event) {
+        //todo сделать окно с инструкцией типо label
+    }
+
+    @FXML
+    void uploadOnRemoteServer(ActionEvent event) {
+        //todo сделать окно с загрузкой на сервер и ip
+    }
 
     private void addNotesToList2() {
         for (String note: Param.notes) {
