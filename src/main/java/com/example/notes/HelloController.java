@@ -11,15 +11,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-
 public class HelloController implements Initializable {
-
 
     @FXML
     private BorderPane borderPane;
@@ -28,16 +25,17 @@ public class HelloController implements Initializable {
     private Button button;
 
     @FXML
-    private ListView<Button> list;
+    public  ListView<Button> list;
 
     private void addNotesToList2() {
         for (String note: Param.notes) {
             list2.add(new Button(note));
         }
-        for (Button b: list2) {
-            b.setPrefWidth(borderPane.getWidth()-18);
+        for (int i = 0; i <list2.size(); i++) {
 
-            b.setOnAction(new EventHandler<ActionEvent>() {
+            list2.get(i).setPrefWidth(borderPane.getWidth()-18);
+            list2.get(i).setId(String.valueOf(i));
+            list2.get(i).setOnAction(new EventHandler<ActionEvent>() {
 
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -47,8 +45,11 @@ public class HelloController implements Initializable {
                         Scene scene = new Scene(fxmlLoader.load());//,450,250
                         Stage stage = new Stage();
                         stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
-                        stage.setTitle("Заметка");
+                        stage.setTitle("Заметка"+((Button) actionEvent.getTarget()).getId());
                         stage.setScene(scene);
+                        stage.setOnHidden(event ->{
+                            list.getItems().setAll(list2);
+                        });
                         stage.showAndWait();
                         ((Button) actionEvent.getTarget()).setText(Param.buffer);
                     } catch (IOException e) {
@@ -64,12 +65,11 @@ public class HelloController implements Initializable {
     @FXML
     void onClickAddButton(ActionEvent event) {
         button.setStyle("-fx-background-color: #ff0000 ");
-        Param.notes.add(Param.buffer);
-        Param.buffer = Param.notes.get(i);
+        //Param.buffer = list2.get(i).getText();
+
         list2.add(new Button("Стартуем"));
         list2.get(list2.size()-1).setPrefWidth(borderPane.getWidth()-18);
         list2.get(list2.size()-1).setOnAction(new EventHandler<ActionEvent>() {
-
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
@@ -80,6 +80,9 @@ public class HelloController implements Initializable {
                     stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
                     stage.setTitle("Заметка");
                     stage.setScene(scene);
+                    stage.setOnHidden(event ->{
+                        list.getItems().setAll(list2);
+                    });
                     stage.showAndWait();
                     ((Button) actionEvent.getTarget()).setText(Param.buffer);
                 } catch (IOException e) {
@@ -89,11 +92,10 @@ public class HelloController implements Initializable {
             }
         });
         list.getItems().setAll(list2);
-    }
-
-    public static void deleteFromList(String s){
 
     }
+
+
 
 
     public static ArrayList<Button> list2;
@@ -101,7 +103,7 @@ public class HelloController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         button.setStyle("-fx-background-color: #0000ff ");
-        list.setStyle("-fx-alignment: center");
+
 
         list2= new ArrayList<>();
         addNotesToList2();

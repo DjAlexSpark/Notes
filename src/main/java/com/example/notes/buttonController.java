@@ -46,12 +46,14 @@ public class buttonController implements Initializable {
 
     @FXML
     void deleteOnAction(ActionEvent event) {
-        HelloController.list2.remove((Button)event.getSource());
-        HelloController.updateNotesFromList2();
+        //HelloController.list2.remove(event.getTarget());
+        HelloController.list2.removeIf(n -> (n.getText().equals(text)));
+
         System.out.println("deleteButton");
         stage = (Stage) stackPane.getScene().getWindow();
         stage.close();
-        updateParamNotes();// setTextEmpty + updateNotesFromList2
+
+        setTextEmpty();// setTextEmpty + updateNotesFromList2
     }
 
     @FXML
@@ -62,15 +64,13 @@ public class buttonController implements Initializable {
         final var Button = (Button) event.getTarget();
         Button.setText(Param.buffer);
         System.out.println(((Button) event.getTarget()).getText());
-        updateParamNotes();
+
         setTextEmpty();
+
 
     }
 
-    private void updateParamNotes() {
-        HelloController.updateNotesFromList2();
-        setTextEmpty();
-    }
+
 
     @FXML
     void cancelOnClickButton(ActionEvent event) {
