@@ -17,6 +17,8 @@ public class HelloApplication extends Application {
 
     @Override
     public void stop() throws Exception {
+        System.out.println("Начинаем ");
+        HelloController.updateNotesFromList2();
         System.out.println("Начинаем записывать файл");
         Param.saveInFile(Param.notes);
         System.out.println("Закончили приложение");

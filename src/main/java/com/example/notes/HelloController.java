@@ -34,7 +34,7 @@ public class HelloController implements Initializable {
         for (int i = 0; i <list2.size(); i++) {
 
             list2.get(i).setPrefWidth(borderPane.getWidth()-18);
-            list2.get(i).setId(String.valueOf(i));
+
             list2.get(i).setOnAction(new EventHandler<ActionEvent>() {
 
                 @Override
@@ -121,11 +121,9 @@ public class HelloController implements Initializable {
     public static void updateNotesFromList2(){
 
         Param.notes.clear();
-        ArrayList<String> arr= new ArrayList<>();
-        for (int i = 0; i < list2.size()-1; i++) {
-            arr.add(list2.get(i).getText());
+        for (Button b: list2) {
+            Param.notes.add(b.getText());
         }
-        Param.notes.addAll(arr);
     }
 
     public void onZoomed(){
