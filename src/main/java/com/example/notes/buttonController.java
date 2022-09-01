@@ -46,9 +46,14 @@ public class buttonController implements Initializable {
 
     @FXML
     void deleteOnAction(ActionEvent event) {
+        //HelloController.list2.remove(event.getTarget());
+        HelloController.list2.removeIf(n -> (n.getText().equals(text)));
+
         System.out.println("deleteButton");
         stage = (Stage) stackPane.getScene().getWindow();
         stage.close();
+
+        setTextEmpty();// setTextEmpty + updateNotesFromList2
     }
 
     @FXML
@@ -59,27 +64,30 @@ public class buttonController implements Initializable {
         final var Button = (Button) event.getTarget();
         Button.setText(Param.buffer);
         System.out.println(((Button) event.getTarget()).getText());
-        saveInArrayOfButtons();
+
+        setTextEmpty();
+
+
     }
 
-    private void saveInArrayOfButtons() {
-        Param.notes.clear();
-        Param.notes.addAll(HelloController.toStringList2());
-    }
+
 
     @FXML
     void cancelOnClickButton(ActionEvent event) {
         stage = (Stage) stackPane.getScene().getWindow();
         stage.close();
+        setTextEmpty();
     }
 
     Stage stage;
-
+    String text="";
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        textArea.setText(Param.buffer);
+        this.text=Param.buffer;
+        textArea.setText(text);
+    }
 
-
-
+    public void setTextEmpty() {
+        this.text = "";
     }
 }

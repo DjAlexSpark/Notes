@@ -11,6 +11,7 @@ public class Param {
     public static int i;
     public static String buffer = "Стартуем";
     public static ArrayList<String> notes = new ArrayList();
+
     public static void saveInFile(ArrayList<String> arrayList){
         try {
             Files.write(path,notes);
