@@ -34,14 +34,14 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="Слияние">
+          <Menu mnemonicParsing="false" text="Синхронизация">
             <items>
-              <MenuItem fx:id="uploadButton" mnemonicParsing="false" onAction="#uploadOnRemoteServer" text="Загрузить" />
+              <MenuItem fx:id="uploadButton" mnemonicParsing="false"  text="Загрузчик" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="О программе">
             <items>
-              <MenuItem fx:id="InstructionButton" mnemonicParsing="false" onAction="#showInstructionWindow" text="Инструкция" />
+              <MenuItem fx:id="instructionButton" mnemonicParsing="false"  text="Инструкция" />
             </items>
           </Menu>
         </menus>

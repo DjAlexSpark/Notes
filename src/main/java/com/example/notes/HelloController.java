@@ -34,15 +34,6 @@ public class HelloController implements Initializable {
     @FXML
     public  ListView<Button> list;
 
-    @FXML
-    void showInstructionWindow(ActionEvent event) {
-        //todo сделать окно с инструкцией типо label
-    }
-
-    @FXML
-    void uploadOnRemoteServer(ActionEvent event) {
-        //todo сделать окно с загрузкой на сервер и ip
-    }
 
     private void addNotesToList2() {
         for (String note: Param.notes) {
@@ -62,7 +53,7 @@ public class HelloController implements Initializable {
                         Scene scene = new Scene(fxmlLoader.load());//,450,250
                         Stage stage = new Stage();
                         stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
-                        stage.setTitle("Заметка"+((Button) actionEvent.getTarget()).getId());
+                        stage.setTitle("Заметка");
                         stage.setScene(scene);
                         stage.setOnHidden(event ->{
                             list.getItems().setAll(list2);
@@ -119,6 +110,30 @@ public class HelloController implements Initializable {
     int i=0;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        uploadButton.setOnAction(event-> {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("uploadWindow.fxml"));
+                Scene scene = new Scene(fxmlLoader.load());//,450,250
+                Stage stage = new Stage();
+                stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
+                stage.setTitle("Синхронизация с сервером");
+                stage.setScene(scene);
+                stage.showAndWait();
+            }catch(IOException e){}
+        });
+        instructionButton.setOnAction(event -> {
+            System.out.println("сделай окно с инструкцией");
+//            try {
+//                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("uploadWindow.fxml"));
+//                Scene scene = new Scene(fxmlLoader.load());//,450,250
+//                Stage stage = new Stage();
+//                //stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
+//                stage.setTitle("Синхронизация с сервером");
+//                stage.setScene(scene);
+//                stage.showAndWait();
+//            }catch(IOException e){}
+        });
+
         button.setStyle("-fx-background-color: #0000ff ");
 
 

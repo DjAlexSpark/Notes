@@ -35,4 +35,5 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
        launch();
     }
+    //todo int i 64000 to 64500 { try {new serverSocket(port)}
 }

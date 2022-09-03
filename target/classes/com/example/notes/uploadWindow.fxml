@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notes.UploadController">
+  <columnConstraints>
+    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="102.0" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="99.0" />
+      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="88.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="159.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="123.0" minHeight="2.0" prefHeight="35.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="186.0" minHeight="4.0" prefHeight="46.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="149.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="Сервер" />
+      <Label text="Ваш" GridPane.rowIndex="2" />
+      <Label text="Подключиться к" GridPane.rowIndex="3" />
+      <Label fx:id="YourServerStatusLabel" text="Статус" GridPane.columnIndex="1" />
+      <Label fx:id="YourIPLabel" text="0.0.0.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="YourPortLabel" text="0000" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Label text="IP" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label text="Port" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+      <TextField fx:id="IPDestinationField" text="0.0.0.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField fx:id="PortDestinationField" text="0000" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Button fx:id="uploadButton" mnemonicParsing="false" onAction="#uploadButtonOnAction" text="Соединить" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <Button fx:id="launchButton" mnemonicParsing="false" onAction="#launchButtonOnAction" text="Запуск" GridPane.columnIndex="3" />
+   </children>
+</GridPane>
