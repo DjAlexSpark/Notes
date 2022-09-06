@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 public class HelloApplication extends Application {
     @Override
@@ -18,6 +19,7 @@ public class HelloApplication extends Application {
     @Override
     public void stop() throws Exception {
         System.out.println("Начинаем записывать файл");
+        HelloController.list2ToNotes();
         Param.saveInFile(Param.notes);
         System.out.println("Закончили приложение");
     }
@@ -28,8 +30,11 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());//, 320, 240
         stage.setTitle("Заметки");
         //stage.setResizable(false);
+        scene.getStylesheets() .add(getClass() .getResource(
+                "style_hello_view.css") .toExternalForm());
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void main(String[] args) {
