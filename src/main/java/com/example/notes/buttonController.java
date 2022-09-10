@@ -46,23 +46,28 @@ public class buttonController implements Initializable {
 
     @FXML
     void deleteOnAction(ActionEvent event) {
+        stage = (Stage) stackPane.getScene().getWindow();
+        stage.setUserData("d");
         //HelloController.list2.remove(event.getTarget());
         HelloController.list2.removeIf(n -> (n.getText().equals(text)));
 
         System.out.println("deleteButton");
-        stage = (Stage) stackPane.getScene().getWindow();
-        stage.close();
 
+        stage.close();
+        //HelloController.updateVbox();
         setTextEmpty();// setTextEmpty + updateNotesFromList2
+
     }
 
     @FXML
     void saveOnClickButton(ActionEvent event) {
-        Param.buffer = String.valueOf(textArea.getText());
         stage = (Stage) stackPane.getScene().getWindow();
+        stage.setUserData("s");
+        Param.buffer = String.valueOf(textArea.getText());
+
         stage.close();
         final var Button = (Button) event.getTarget();
-        Button.setText(Param.buffer);
+        Button.setText(text);
         System.out.println(((Button) event.getTarget()).getText());
 
         setTextEmpty();
@@ -75,8 +80,10 @@ public class buttonController implements Initializable {
     @FXML
     void cancelOnClickButton(ActionEvent event) {
         stage = (Stage) stackPane.getScene().getWindow();
+        stage.setUserData("c");
         stage.close();
         setTextEmpty();
+
     }
 
     Stage stage;
@@ -85,6 +92,7 @@ public class buttonController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.text=Param.buffer;
         textArea.setText(text);
+
     }
 
     public void setTextEmpty() {

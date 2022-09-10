@@ -8,23 +8,23 @@
 <?import javafx.scene.layout.StackPane?>
 
 <StackPane fx:id="stackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notes.buttonController">
-   <children>
-      <BorderPane fx:id="borderPane">
-         <bottom>
-            <ButtonBar fx:id="buttonBar" BorderPane.alignment="CENTER">
-              <buttons>
-                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteOnAction" text="Удалить" />
-                <Button fx:id="saveButton" defaultButton="true" mnemonicParsing="false" onAction="#saveOnClickButton" text="Сохранить" />
-                  <Button fx:id="cancelButton" alignment="CENTER" cancelButton="true" mnemonicParsing="false" onAction="#cancelOnClickButton" text="Отмена" />
-              </buttons>
-               <BorderPane.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </BorderPane.margin>
-            </ButtonBar>
-         </bottom>
-         <center>
-            <TextArea fx:id="textArea" BorderPane.alignment="CENTER" />
-         </center>
-      </BorderPane>
-   </children>
+    <children>
+        <BorderPane fx:id="borderPane">
+            <bottom>
+                <ButtonBar fx:id="buttonBar" BorderPane.alignment="CENTER">
+                    <buttons>
+                        <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteOnAction" text="Удалить" />
+                        <Button fx:id="saveButton" defaultButton="true" mnemonicParsing="false" onAction="#saveOnClickButton" text="Сохранить" />
+                        <Button fx:id="cancelButton" alignment="CENTER" cancelButton="true" mnemonicParsing="false" onAction="#cancelOnClickButton" text="Отмена" />
+                    </buttons>
+                    <BorderPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                    </BorderPane.margin>
+                </ButtonBar>
+            </bottom>
+            <center>
+                <TextArea fx:id="textArea" BorderPane.alignment="CENTER" />
+            </center>
+        </BorderPane>
+    </children>
 </StackPane>
