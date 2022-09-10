@@ -12,12 +12,15 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+
 public class HelloController implements Initializable {
+
 
     @FXML
     private MenuItem instructionButton;
@@ -32,7 +35,7 @@ public class HelloController implements Initializable {
     private Button button;
 
     @FXML
-    public  ListView<Button> list;
+    private ListView<Button> list;
 
     @FXML
     void showInstructionWindow(ActionEvent event) {
@@ -48,11 +51,10 @@ public class HelloController implements Initializable {
         for (String note: Param.notes) {
             list2.add(new Button(note));
         }
-        for (int i = 0; i <list2.size(); i++) {
+        for (Button b: list2) {
+            b.setPrefWidth(borderPane.getWidth()-18);
 
-            list2.get(i).setPrefWidth(borderPane.getWidth()-18);
-
-            list2.get(i).setOnAction(new EventHandler<ActionEvent>() {
+            b.setOnAction(new EventHandler<ActionEvent>() {
 
                 @Override
                 public void handle(ActionEvent actionEvent) {
@@ -62,11 +64,8 @@ public class HelloController implements Initializable {
                         Scene scene = new Scene(fxmlLoader.load());//,450,250
                         Stage stage = new Stage();
                         stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
-                        stage.setTitle("Заметка"+((Button) actionEvent.getTarget()).getId());
+                        stage.setTitle("Заметка");
                         stage.setScene(scene);
-                        stage.setOnHidden(event ->{
-                            list.getItems().setAll(list2);
-                        });
                         stage.showAndWait();
                         ((Button) actionEvent.getTarget()).setText(Param.buffer);
                     } catch (IOException e) {
@@ -82,11 +81,12 @@ public class HelloController implements Initializable {
     @FXML
     void onClickAddButton(ActionEvent event) {
         button.setStyle("-fx-background-color: #ff0000 ");
-        //Param.buffer = list2.get(i).getText();
-
+        Param.notes.add(Param.buffer);
+        Param.buffer = Param.notes.get(i);
         list2.add(new Button("Стартуем"));
         list2.get(list2.size()-1).setPrefWidth(borderPane.getWidth()-18);
         list2.get(list2.size()-1).setOnAction(new EventHandler<ActionEvent>() {
+
             @Override
             public void handle(ActionEvent actionEvent) {
                 try {
@@ -97,9 +97,6 @@ public class HelloController implements Initializable {
                     stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
                     stage.setTitle("Заметка");
                     stage.setScene(scene);
-                    stage.setOnHidden(event ->{
-                        list.getItems().setAll(list2);
-                    });
                     stage.showAndWait();
                     ((Button) actionEvent.getTarget()).setText(Param.buffer);
                 } catch (IOException e) {
@@ -109,9 +106,7 @@ public class HelloController implements Initializable {
             }
         });
         list.getItems().setAll(list2);
-
     }
-
 
 
 
@@ -120,7 +115,7 @@ public class HelloController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         button.setStyle("-fx-background-color: #0000ff ");
-
+        list.setStyle("-fx-alignment: center");
 
         list2= new ArrayList<>();
         addNotesToList2();
@@ -135,12 +130,13 @@ public class HelloController implements Initializable {
     }
 
 
-    public static void updateNotesFromList2(){
 
-        Param.notes.clear();
-        for (Button b: list2) {
-            Param.notes.add(b.getText());
+    public static ArrayList<String> toStringList2(){
+        ArrayList<String> arr= new ArrayList<>();
+        for (int i = 0; i < list2.size()-1; i++) {
+            arr.add(list2.get(i).getText());
         }
+        return arr;
     }
 
     public void onZoomed(){
