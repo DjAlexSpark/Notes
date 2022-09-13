@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class buttonController implements Initializable {
+public class ButtonController implements Initializable {
 
     @FXML
     private ResourceBundle resources;

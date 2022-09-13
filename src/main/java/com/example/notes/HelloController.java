@@ -152,6 +152,7 @@ public class HelloController implements Initializable {
                 stage.setTitle("Синхронизация с сервером");
                 stage.setScene(scene);
                 stage.showAndWait();
+
             }catch(IOException e){}
         });
         instructionButton.setOnAction(event -> {
