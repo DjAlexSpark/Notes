@@ -1,0 +1,8 @@
+com\example\notes\Remote\Client.class
+com\example\notes\UploadController.class
+com\example\notes\HelloController.class
+com\example\notes\HelloApplication.class
+com\example\notes\Param.class
+module-info.class
+com\example\notes\Remote\Server.class
+com\example\notes\ButtonController.class
