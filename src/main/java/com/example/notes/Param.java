@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Param {
-    private static final Path path = Path.of("src/main/resources/com/example/notes/Notes.txt");
+    private static Path path = Path.of("src/main/resources/com/example/notes/Notes.txt");
     public static int i;
     public static String buffer = "Стартуем";
     public static ArrayList<String> notes = new ArrayList();
@@ -19,7 +19,7 @@ public class Param {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    };
 
     public static void checkNotesFile(){
 

@@ -13,7 +13,7 @@ import javafx.scene.layout.GridPane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.example.notes.Main.server;
+import static com.example.notes.HelloApplication.server;
 
 public class UploadController {
 

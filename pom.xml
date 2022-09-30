@@ -131,16 +131,16 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.example.notes.Main</mainClass>
+                            <mainClass>com.example.notes.HelloApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
                 <executions>
                     <execution>
                         <!-- Default configuration for running with: mvn clean javafx:run -->
-                        <id>default-cli</id>
+                        <id>default-client</id>
                         <configuration>
-                            <mainClass>com.example.notes.Main</mainClass>
+                            <mainClass>com.example.notes.HelloApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

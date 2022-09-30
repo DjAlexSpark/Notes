@@ -63,7 +63,7 @@ public class HelloController implements Initializable {
         list2.get(list2.size()-1).setOnAction(actionEvent -> {
             try {
                 Param.buffer = ((Button) actionEvent.getTarget()).getText();
-                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("noteWindow.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("noteWindow.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());//,450,250
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
@@ -106,7 +106,7 @@ public class HelloController implements Initializable {
             list2.get(i).setOnAction(actionEvent -> {
                 try {
                     Param.buffer = ((Button) actionEvent.getTarget()).getText();
-                    FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("noteWindow.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("noteWindow.fxml"));
                     Scene scene = new Scene(fxmlLoader.load());//,450,250
                     Stage stage = new Stage();
                     stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
@@ -139,7 +139,7 @@ public class HelloController implements Initializable {
         scrollPanewithVbox.setFitToWidth(true);
         uploadButton.setOnAction(event-> {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("uploadWindow.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("uploadWindow.fxml"));
                 Scene scene = new Scene(fxmlLoader.load());//,450,250
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
