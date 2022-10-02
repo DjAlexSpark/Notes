@@ -10,18 +10,12 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void init() throws Exception {
-        System.out.println("Начинаем проверку на наличие файла");
-        Param.checkNotesFile();
-        System.out.println("Закончили проверку файла");
+
     }
 
     @Override
     public void stop() throws Exception {
-        System.out.println("Начинаем ");
-        HelloController.updateNotesFromList2();
-        System.out.println("Начинаем записывать файл");
-        Param.saveInFile(Param.notes);
-        System.out.println("Закончили приложение");
+
     }
 
     @Override
@@ -30,11 +24,16 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());//, 320, 240
         stage.setTitle("Заметки");
         //stage.setResizable(false);
+        scene.getStylesheets() .add(getClass() .getResource(
+                "style_hello_view.css") .toExternalForm());
         stage.setScene(scene);
+        stage.setOnShown((event) -> {
+            HelloController.onStart();
+        });
         stage.show();
     }
 
     public static void main(String[] args) {
-       launch();
+        launch();
     }
 }
