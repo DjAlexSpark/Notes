@@ -1,5 +1,6 @@
 package com.example.notes;
 
+import com.example.notes.Remote.Server;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -8,14 +9,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
-    @Override
-    public void init() throws Exception {
 
-    }
 
     @Override
     public void stop() throws Exception {
-
+        System.out.println("Начинаем записывать файл");
+        com.example.notes.HelloController.list2ToNotes();
+        Param.saveInFile(Param.notes);
+        System.out.println("Закончили приложение");
     }
 
     @Override
@@ -28,12 +29,20 @@ public class HelloApplication extends Application {
                 "style_hello_view.css") .toExternalForm());
         stage.setScene(scene);
         stage.setOnShown((event) -> {
-            HelloController.onStart();
+            com.example.notes.HelloController.onStart();
         });
         stage.show();
-    }
 
+
+    }
+    static Server server = new Server();
     public static void main(String[] args) {
+        System.out.println("Начинаем проверку на наличие файла");
+        Param.checkNotesFile();
+        System.out.println("Закончили проверку файла");
+        server.setDaemon(true);
+        server.start();
         launch();
     }
+    //todo int i 64000 to 64500 { try {new serverSocket(port)}
 }
