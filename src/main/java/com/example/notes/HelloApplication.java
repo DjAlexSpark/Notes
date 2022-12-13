@@ -13,17 +13,17 @@ public class HelloApplication extends Application {
 
     @Override
     public void stop() throws Exception {
-        System.out.println("Начинаем записывать файл");
+        System.out.println("start write file notes");
         com.example.notes.HelloController.list2ToNotes();
         Param.saveInFile(Param.notes);
-        System.out.println("Закончили приложение");
+        System.out.println("finish write file notes");
     }
 
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());//, 320, 240
-        stage.setTitle("Заметки");
+        stage.setTitle("Notes");
         //stage.setResizable(false);
         scene.getStylesheets() .add(getClass() .getResource(
                 "style_hello_view.css") .toExternalForm());
@@ -37,9 +37,9 @@ public class HelloApplication extends Application {
     }
     static Server server = new Server();
     public static void main(String[] args) {
-        System.out.println("Начинаем проверку на наличие файла");
+        System.out.println("fileExists checking start");
         Param.checkNotesFile();
-        System.out.println("Закончили проверку файла");
+        System.out.println("fileExists checking finish");
         server.setDaemon(true);
         server.start();
         launch();

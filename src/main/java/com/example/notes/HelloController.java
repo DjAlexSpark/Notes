@@ -58,7 +58,7 @@ public class HelloController implements Initializable {
     @FXML
     void onClickAddButton(ActionEvent event) {
 
-        list2.add(new Button("Стартуем"));
+        list2.add(new Button("new note"));
         list2.get(list2.size()-1).setPrefWidth(vboxForButtons.getWidth());
 
         list2.get(list2.size()-1).setOnAction(actionEvent -> {
@@ -68,7 +68,7 @@ public class HelloController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load());//,450,250
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
-                stage.setTitle("Заметка");
+                stage.setTitle("Note");
                 stage.setScene(scene);
                 stage.setOnHidden(event1 ->{
                     String s = String.valueOf(((((Stage)(event1.getTarget())).getUserData())));
@@ -111,7 +111,7 @@ public class HelloController implements Initializable {
                     Scene scene = new Scene(fxmlLoader.load());//,450,250
                     Stage stage = new Stage();
                     stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
-                    stage.setTitle("Заметка");
+                    stage.setTitle("Note");
                     stage.setScene(scene);
                     stage.setOnHidden(event ->{
                         String s = String.valueOf(((((Stage)(event.getTarget())).getUserData())));
@@ -144,14 +144,14 @@ public class HelloController implements Initializable {
                 Scene scene = new Scene(fxmlLoader.load());//,450,250
                 Stage stage = new Stage();
                 stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
-                stage.setTitle("Синхронизация с сервером");
+                stage.setTitle("Synchronizing server");
                 stage.setScene(scene);
                 stage.showAndWait();
 
             }catch(IOException e){}
         });
         instructionButton.setOnAction(event -> {
-            System.out.println("сделай окно с инструкцией");
+            System.out.println("make the fucking window!!!!");
 
         });
 

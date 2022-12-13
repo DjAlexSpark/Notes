@@ -9,13 +9,13 @@ import java.util.List;
 public class Param {
     private static Path path = Path.of("src/main/resources/com/example/notes/Notes.txt");
     public static int i;
-    public static String buffer = "Стартуем";
+    public static String buffer = "new note";
     public static ArrayList<String> notes = new ArrayList();
 
     public static void saveInFile(ArrayList<String> arrayList){
         try {
             Files.write(path,notes);
-            System.out.println("Сохраняем notes в файл на диске");
+            System.out.println("Savin notes in file");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -26,13 +26,13 @@ public class Param {
         if (!Files.exists(path)){
             try {
                 Files.createFile(path);
-                System.out.println("Файл создан");
+                System.out.println("file created");
             } catch (IOException e) {
                 e.printStackTrace();
                 e.getCause();
             }
         }else {
-            System.out.println("Файл есть");
+            System.out.println("file notes exists");
         }
 
         List<String> list = null;
@@ -42,7 +42,7 @@ public class Param {
 //                for (String str : list)
 //                    System.out.println(str);
 //            }else{
-                System.out.println("Лист пустой");
+                System.out.println("List is empty");
             }
         } catch (IOException e) {
             e.printStackTrace();

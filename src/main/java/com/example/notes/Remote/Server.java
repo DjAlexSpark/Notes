@@ -32,7 +32,7 @@ public class Server extends Thread{
 
     @Override
     public void run() {
-        System.out.println("Стартовал");
+        System.out.println("Server says: started");
         //todo написать Сервер заново((
 
     }

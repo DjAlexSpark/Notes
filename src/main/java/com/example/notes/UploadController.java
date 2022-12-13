@@ -76,9 +76,9 @@ public class UploadController {
     }
     private String serverStatus(){
         if (server.isAlive()){
-            return"Включен";
+            return"server is On";
         }else {
-            return"Выключен";
+            return"server is Off";
         }
     }
 }
