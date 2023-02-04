@@ -1,7 +1,8 @@
 package com.example.notes;
 
-import com.example.notes.Remote.Client;
 
+
+import com.example.notes.Remote.Server;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -13,8 +14,6 @@ import javafx.scene.layout.GridPane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import static com.example.notes.HelloApplication.server;
 
 
 public class UploadController {
@@ -59,14 +58,12 @@ public class UploadController {
     void uploadButtonOnAction(ActionEvent event) {
         //todo start client
 
-        Client client = new Client(IPDestinationField.getText(), PortDestinationField.getText());
-        client.setDaemon(true);
-        client.start();
 
     }
-
+    Server server = new Server();
     @FXML
     void initialize() {
+
         launchButton.setDisable(true);
 
         StringProperty property = new SimpleStringProperty((serverStatus()));
