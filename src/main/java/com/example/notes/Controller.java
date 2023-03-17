@@ -86,10 +86,7 @@ public class Controller {
 
     @FXML
     void button4OnClick(ActionEvent event) {
-        //todo save my notes;
 
-
-        saveMyNotesNow();
     }
 
 
@@ -175,9 +172,7 @@ public class Controller {
 
 
 
-    public void saveMyNotesNow(){
 
-    }
     public List<Path> getDirectoriesIn(Path path) {
         List<Path> result = new ArrayList();
         try (Stream<Path> walk = Files.walk(path,1)) {

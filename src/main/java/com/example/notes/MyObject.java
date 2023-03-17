@@ -29,8 +29,6 @@ public class MyObject implements Serializable {
         this.textArea = textArea;
         this.listOfImages = new ArrayList<>();
     }
-    public void save(){
-        //todo save in directory with Name of order
-    }
+
 }
 
