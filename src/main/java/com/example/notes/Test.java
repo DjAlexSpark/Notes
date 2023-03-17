@@ -24,7 +24,7 @@ public class Test {
         for (Path path:directoriesIn) {
             list.add(getAnObjectFromPath(path));
         }
-        return null;
+        return list;
         }
 
 

@@ -22,7 +22,7 @@ public class MyObject implements Serializable {
     public MyObject(String textField, String textArea, ArrayList<Image> listOfImages) {
         this.textField = textField;
         this.textArea = textArea;
-        this.listOfImages = (ArrayList<Image>) Arrays.stream(listOfImages).toList();
+        this.listOfImages = (ArrayList<Image>) listOfImages;
     }
     public MyObject(String textField, String textArea) {
         this.textField = textField;
