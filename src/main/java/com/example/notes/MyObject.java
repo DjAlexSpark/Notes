@@ -10,7 +10,7 @@ public class MyObject implements Serializable {
 
     String textField;
     String textArea ;
-    ArrayList<Image> listOfImages;
+    ArrayList<String> listOfImages;
 
     public MyObject() {
         this.textField = "НЕПустое сообщение";
@@ -19,10 +19,10 @@ public class MyObject implements Serializable {
 
     }
 
-    public MyObject(String textField, String textArea, ArrayList<Image> listOfImages) {
+    public MyObject(String textField, String textArea, ArrayList<String> listOfImages) {
         this.textField = textField;
         this.textArea = textArea;
-        this.listOfImages = (ArrayList<Image>) listOfImages;
+        this.listOfImages = listOfImages;
     }
     public MyObject(String textField, String textArea) {
         this.textField = textField;

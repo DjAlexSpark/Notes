@@ -154,8 +154,8 @@ public class NoteController {
         this.onClosedTextField.setText(myObject.textField);
         //myObject.listOfImages
         ArrayList arr = new ArrayList();
-        for (Image i:myObject.listOfImages){
-            arr.add(new ImageView(i));
+        for (String i:myObject.listOfImages){
+            arr.add(new ImageView(new Image(i)));
             //todo чет не то
         }
         //todo сначала закончи с импортом заметок в MyObjects потом тут добавляй картинки

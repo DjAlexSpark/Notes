@@ -93,11 +93,20 @@ public class Controller {
     @FXML
     private ListView<String> listView;
     ArrayList<MyObject> arrayList;
+
+    public ArrayList<MyObject> getArrayList() {
+        return arrayList;
+    }
+
+    public void setArrayList(ArrayList<MyObject> arrayList) {
+        this.arrayList = arrayList;
+    }
+
     ObservableList<String> observableList;
     Path path = Path.of("src/main/resources/MyNotes");
     @FXML
     void initialize() {
-        arrayList = new ArrayList<>();//getAllNotes // MyObject содержит 'public String textField,textArea')
+
 
         observableList = FXCollections.observableArrayList();
         listView.setItems(observableList);
