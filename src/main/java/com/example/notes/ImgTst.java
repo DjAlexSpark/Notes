@@ -21,6 +21,51 @@ public class ImgTst {
         Path directories = Path.of("C:\\Users\\33\\IdeaProjects\\NotesWithAdds\\src\\main\\resources\\MyNotes");
 //        Path directories = Path.of("D:\\РАБОТА\\ТИК дипломы");
 
+        ArrayList<File> listofImages=new ArrayList<>();
+        String textField="";
+        String textArea="";
+        for (Path path:directories) {
+            textArea = path.resolve("textArea.txt").toString();
+            textField = path.resolve("textField.txt").toString();
+            try {
+                List<Path> pathOfImages = Files.walk(path.resolve("\\Images")).filter(p->
+                {
+                    try {
+                        BufferedImage image = ImageIO.read(new File(p.toUri()));
+                        return true;
+                    } catch (IOException e) {
+                        return false;
+                    }
+                }).toList();
+                for (Path p :pathOfImages) {
+                    listofImages.add(new File(p.toUri()));
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            listOfMyObjects.add(new MyObject(textField,textField,listofImages));
+        }
+
+        /*Foreach path
+        textField = textField
+        textArea = textArea
+            getPathofImages from path
+
+            foreach path of image
+            listofImages.add(new File(path of image))
+           }
+           new MyObject(textfiedl,textare,arrayofimages)
+         }
+         */
+
+
+
+
+
+
+
+
         try {
                 var s = Files.walk(directories);
                 s.forEach(System.out::println);

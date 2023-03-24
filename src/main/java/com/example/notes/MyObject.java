@@ -1,16 +1,14 @@
 package com.example.notes;
 
-import javafx.scene.image.Image;
-
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MyObject implements Serializable {
 
     String textField;
     String textArea ;
-    ArrayList<String> listOfImages;
+    ArrayList<File> listOfImages;
 
     public MyObject() {
         this.textField = "НЕПустое сообщение";
@@ -19,7 +17,7 @@ public class MyObject implements Serializable {
 
     }
 
-    public MyObject(String textField, String textArea, ArrayList<String> listOfImages) {
+    public MyObject(String textField, String textArea, ArrayList<File> listOfImages) {
         this.textField = textField;
         this.textArea = textArea;
         this.listOfImages = listOfImages;

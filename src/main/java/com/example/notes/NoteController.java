@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class NoteController {
@@ -154,8 +155,8 @@ public class NoteController {
         this.onClosedTextField.setText(myObject.textField);
         //myObject.listOfImages
         ArrayList arr = new ArrayList();
-        for (String i:myObject.listOfImages){
-            arr.add(new ImageView(new Image(i)));
+        for (File i:myObject.listOfImages){
+            arr.add(new ImageView(new Image(i.getAbsolutePath())));
             //todo чет не то
         }
         //todo сначала закончи с импортом заметок в MyObjects потом тут добавляй картинки
