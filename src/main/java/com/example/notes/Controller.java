@@ -2,6 +2,7 @@ package com.example.notes;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -112,11 +113,9 @@ public class Controller {
     }
 
     Path path = Path.of("src/main/resources/MyNotes");
-    ObservableList<String> observableList;
+    ObservableList<String> observableList = FXCollections.observableArrayList();
     @FXML
     void initialize() {
-
-
 
     }
 
@@ -150,6 +149,7 @@ public class Controller {
             myObject.textField = controller.getTextField().getText();
 
         } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }
@@ -245,6 +245,7 @@ public class Controller {
     }
 
     public void fillArray(Path path) {
+        setPath(path);
         setArrayList(getMyObjectsFrom(path));
         beforeStart();
     }
