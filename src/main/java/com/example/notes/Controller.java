@@ -2,7 +2,6 @@ package com.example.notes;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,7 +27,7 @@ import java.util.stream.Collectors;
 
 
 public class Controller {
-//resources and location needed implements Initializable
+
     @FXML
     private ResourceBundle resources;
 
@@ -102,7 +101,7 @@ public class Controller {
         this.arrayList = arrayList;
     }
 
-    ObservableList<String> observableList;
+
 
     public Path getPath() {
         return path;
@@ -113,29 +112,10 @@ public class Controller {
     }
 
     Path path = Path.of("src/main/resources/MyNotes");
-
+    ObservableList<String> observableList;
     @FXML
     void initialize() {
 
-
-        observableList = FXCollections.observableArrayList();
-        listView.setItems(observableList);
-
-
-        listView.setOnMouseClicked(eventHandler->{
-        if (listView.getSelectionModel().getSelectedIndex()>=0) {
-            openSelectedItem(arrayList.get(listView.getSelectionModel().getSelectedIndex()));
-            System.out.println(arrayList.size() + "" + listView.getItems().size());
-        }
-        });
-
-        //получаем текст выбранного элемента(не работает если текст одинаковый)
-        MultipleSelectionModel<String> langsSelectionModel = listView.getSelectionModel();
-        langsSelectionModel.selectedItemProperty().addListener(new ChangeListener<String>(){
-            public void changed(ObservableValue<? extends String> changed, String oldValue, String newValue){
-                System.out.println("Selected: " + newValue);
-            }
-        });
 
 
     }
@@ -261,14 +241,40 @@ public class Controller {
 
     public void fillArray() {
         setArrayList(getMyObjectsFrom(getPath()));
+        beforeStart();
     }
 
     public void fillArray(Path path) {
         setArrayList(getMyObjectsFrom(path));
+        beforeStart();
     }
 
     public void writeArray() {
         System.out.println("wrote");
+    }
+
+    public void beforeStart() {
+        for (MyObject object : arrayList) {
+            observableList.add(object.textField);
+        }
+
+        listView.setItems(observableList);
+
+        listView.setOnMouseClicked(eventHandler -> {
+            if (listView.getSelectionModel().getSelectedIndex() >= 0) {
+                openSelectedItem(arrayList.get(listView.getSelectionModel().getSelectedIndex()));
+                System.out.println(arrayList.size() + "" + listView.getItems().size());
+            }
+        });
+
+        //получаем текст выбранного элемента(не работает если текст одинаковый)
+        MultipleSelectionModel<String> langsSelectionModel = listView.getSelectionModel();
+        langsSelectionModel.selectedItemProperty().addListener(new ChangeListener<String>() {
+            public void changed(ObservableValue<? extends String> changed, String oldValue, String newValue) {
+                System.out.println("Selected: " + newValue);
+            }
+        });
+
     }
 }
 

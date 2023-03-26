@@ -10,14 +10,15 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        System.setProperty("javafx.debug.trace", "true");
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("homePage.fxml"));
         Scene scene = new Scene(fxmlloader.load());
-
         Controller controller = fxmlloader.getController();
         controller.fillArray();
         controller.setArrayList(controller.getMyObjectsFrom(controller.getPath()));
