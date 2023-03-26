@@ -10,7 +10,6 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -97,8 +96,8 @@ public class NoteController {
     void onActionSaveAndExit(ActionEvent event) {
         borderPane.getScene().getWindow().hide();
     }
-    private TextArea onClosedTextArea = new TextArea("");
-    private TextField onClosedTextField = new TextField("");
+    private final TextArea onClosedTextArea = new TextArea("");
+    private final TextField onClosedTextField = new TextField("");
 
      private MyObject myObject;
     private Stage stage;
@@ -159,37 +158,7 @@ public class NoteController {
             arr.add(new ImageView(new Image(i.getAbsolutePath())));
             //todo чет не то
         }
-        //todo сначала закончи с импортом заметок в MyObjects потом тут добавляй картинки
 
-//        Image img = new Image(getClass().getResourceAsStream("img.PNG"));
-//        Image img2 = new Image(getClass().getResourceAsStream("img2.PNG"));
-//        Image img3 = new Image(getClass().getResourceAsStream("img3.PNG"));
-//        ImageView imgView = new ImageView(img);
-//        ImageView imgView2 = new ImageView(img2);
-//        ImageView imgView3 = new ImageView(img3);
-//        HBox hboxImages = new HBox();
-//        hboxImages.getChildren().add(imgView);
-//        hboxImages.getChildren().add(imgView2);
-//        GridPane gridPane = new GridPane();
-//        gridPane.add(imgView,1,1);
-//        gridPane.add(imgView2,0,1);
-//        gridPane.add(imgView3,2,1);
-
-
-
-//        imgView.setPreserveRatio(true);
-//        imgView2.setPreserveRatio(true);
-//        imgView3.setPreserveRatio(true);
-//        imgView.setFitHeight(100);
-//        imgView2.setFitHeight(100);
-//        imgView3.setFitHeight(100);
-
-        //bP.setBottom(button);
-
-        //scrollPane.setContent(hboxImages);
-//        scrollPane.setContent(gridPane);
-//        hboxImages.setFillHeight(true);
-        //
     }
 
 

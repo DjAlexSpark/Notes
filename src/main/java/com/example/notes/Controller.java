@@ -16,16 +16,16 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
 
 public class Controller {
 //resources and location needed implements Initializable
@@ -103,14 +103,24 @@ public class Controller {
     }
 
     ObservableList<String> observableList;
+
+    public Path getPath() {
+        return path;
+    }
+
+    public void setPath(Path path) {
+        this.path = path;
+    }
+
     Path path = Path.of("src/main/resources/MyNotes");
+
     @FXML
     void initialize() {
 
 
         observableList = FXCollections.observableArrayList();
         listView.setItems(observableList);
-        addMyObject(new MyObject());
+
 
         listView.setOnMouseClicked(eventHandler->{
         if (listView.getSelectionModel().getSelectedIndex()>=0) {
@@ -126,30 +136,14 @@ public class Controller {
                 System.out.println("Selected: " + newValue);
             }
         });
-        System.out.println(arrayList.size()+""+listView.getItems().size());
+
 
     }
 
-    private ArrayList getAllNotes(Path path) {
-        //todo найти все заметки и вытащить их в массив
-        //ищем папку с записями
-        //добавляем каждую папку с записями в массив переводя
-        ArrayList array = new ArrayList();
 
-
-//        for (File file : files) {
-//            if (file.isDirectory()) {
-//                System.out.println("Directory: " + file.getAbsolutePath());
-//                showFiles(file.listFiles()); // Calls same method again.
-//            } else {
-//                System.out.println("File: " + file.getAbsolutePath());
-//            }
-
-        return new ArrayList<>();
-    }
 
     private void openSelectedItem(MyObject myObject) {
-        //todo создать окно с этими textfield и textarea
+
         try {
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Note.fxml"));
@@ -175,23 +169,106 @@ public class Controller {
             myObject.textArea = controller.getTextArea().getText();
             myObject.textField = controller.getTextField().getText();
 
-        }catch(IOException e){}
+        } catch (IOException e) {
+        }
 
     }
 
 
+    public ArrayList<MyObject> getMyObjectsFrom(Path path) {
+        //begin
+        try {
+            //path = path.of(\\MyNotes)
+            ArrayList<MyObject> list = new ArrayList<>();
+
+            List<Path> folders = Files.list(path).toList();
+            File textField;
+            File textArea;
+            List<File> files;
+            for (Path p : folders) {
+
+                //вместо имени файла, нужно содержимое
+                textField = new File(p.resolve("textField.txt").toUri());
+                textArea = new File(p.resolve("textArea.txt").toUri());
 
 
-    public List<Path> getDirectoriesIn(Path path) {
-        List<Path> result = new ArrayList();
-        try (Stream<Path> walk = Files.walk(path,1)) {
-            result = walk.filter(Files::isDirectory)
-                    .collect(Collectors.toList());
-        }catch (Exception e){
+                System.out.println(textArea.getAbsolutePath() + " " +
+                        textField.getAbsolutePath());
+                ArrayList<File> images = new ArrayList<>();
+                Path imgPath = p.resolve(Paths.get("Images"));
+                System.out.println(imgPath);
+                try {
+                    List<Path> paths = Files.walk(imgPath)
+                            .filter(Files::isRegularFile)
+                            .filter(p1 -> p1.toString().endsWith(".jpg") || p1.toString().endsWith(".png"))
+                            .collect(Collectors.toList());
 
+                    files = new ArrayList<File>();
+                    for (Path path1 : paths) {
+                        files.add(path1.toFile());
+                        System.out.println(path1);
+                    }
+
+                    String textFieldContents = null;
+                    String textAreaContents = null;
+                    try {
+
+                        BufferedReader textAreaBR = new BufferedReader(new InputStreamReader(new FileInputStream(textArea)));
+                        BufferedReader textFieldBR = new BufferedReader(new InputStreamReader(new FileInputStream(textField)));
+
+                        StringBuilder textAreaSB = new StringBuilder();
+                        StringBuilder textFieldSB = new StringBuilder();
+                        String textAreaLine;
+                        String textFieldLine;
+
+                        while ((textAreaLine = textAreaBR.readLine()) != null) {
+                            textAreaSB.append(textAreaLine).append("\n");
+                        }
+                        while ((textFieldLine = textFieldBR.readLine()) != null) {
+                            textFieldSB.append(textFieldLine).append("\n");
+                        }
+
+                        textAreaContents = textAreaSB.toString();
+                        textFieldContents = textFieldSB.toString();
+
+
+                        textAreaBR.close(); // не забудьте закрыть поток
+                        textFieldBR.close(); // не забудьте закрыть поток
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    //todo не АААААААААААААА!
+                    list.add(new MyObject(textAreaContents, textFieldContents, images));
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+            //для каждого пути найти файлы и создать MyObject
+            //создать text и приравнять
+
+            return list;
+            //end
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        result.remove(0);
-        return result;
+    }
+
+
+    public void fillArray() {
+        setArrayList(getMyObjectsFrom(getPath()));
+    }
+
+    public void fillArray(Path path) {
+        setArrayList(getMyObjectsFrom(path));
+    }
+
+    public void writeArray() {
+        System.out.println("wrote");
     }
 }
 
