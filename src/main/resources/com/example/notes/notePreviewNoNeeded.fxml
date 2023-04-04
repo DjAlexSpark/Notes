@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="borderPane" prefHeight="255.0" prefWidth="298.0"
-            xmlns="http://javafx.com/javafx/19" fx:controller="com.example.notes.TController">
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="borderPane" prefHeight="255.0" prefWidth="298.0" stylesheets="@NoteCss.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notes.TController">
     <top>
-        <VBox fx:id="vboxTop" BorderPane.alignment="CENTER">
+        <VBox fx:id="vboxTop" alignment="CENTER" BorderPane.alignment="CENTER">
             <children>
                 <MenuBar fx:id="menuBar">
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem fx:id="saveAndExitButton" mnemonicParsing="false"
-                                          onAction="#onActionSaveAndExit" text="Save and close"/>
-                                <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#closeNote"
-                                          text="Close"/>
+                                <MenuItem fx:id="saveAndExitButton" mnemonicParsing="false" onAction="#onActionSaveAndExit" text="Save and close" />
+                                <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#closeNote" text="Close" />
                             </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
@@ -34,9 +36,9 @@
       </VBox>
    </top>
     <center>
-        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" pannable="true" BorderPane.alignment="CENTER">
+        <ScrollPane fx:id="scrollPane" cache="true" fitToHeight="true" fitToWidth="true" focusTraversable="false" hbarPolicy="NEVER" pannable="true" BorderPane.alignment="CENTER">
             <content>
-                <VBox fx:id="vboxList" alignment="CENTER"/>
+                <VBox fx:id="vboxList" alignment="CENTER" />
             </content>
         </ScrollPane>
     </center>

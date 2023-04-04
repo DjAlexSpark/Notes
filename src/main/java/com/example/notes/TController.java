@@ -8,8 +8,15 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class TController {
 
@@ -76,26 +83,104 @@ public class TController {
     void onActionSaveAndExit(ActionEvent event) {
 
     }
-
+ArrayList<MyObject> array = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes"));
     @FXML
     void initialize() {
-        Button button = new Button("qweasdzxc");
-        Button button2 = new Button("qweasdzxc");
-        Button button3 = new Button("qweasdzxc");
-        Button button4 = new Button("qweasdzxc");
-        Button button5 = new Button("qweasdzxc");
-        Button button6 = new Button("qweasdzxc");
-        Button button7 = new Button("qweasdzxc");
-        Button button8 = new Button("qweasdzxc");
-        vboxList.getChildren().addAll(button, button2, button3, button4, button5, button6, button7, button8);
-        for (Node b : vboxList.getChildren()) {
+        vboxList.prefWidthProperty().bind(scrollPane.widthProperty());
+        vboxList.prefHeightProperty().bind(scrollPane.heightProperty());
+        vboxList.setAlignment(Pos.TOP_CENTER);
 
-        }
-        vboxList.setAlignment(Pos.CENTER);
+
+        vboxList.getChildren().addAll(array.stream().map(o->new Button(o.textField)).collect(Collectors.toList()));
+        //vboxList.getChildren().setAll();
+
+
         vboxList.setSpacing(10.2);
         scrollPane.setContent(vboxList);
 
 
-    }
 
+    }
+    public ArrayList<MyObject> getMyObjectsFrom(Path path) {
+        //begin
+        try {
+            //path = path.of(\\MyNotes)
+            ArrayList<MyObject> list = new ArrayList<>();
+
+            List<Path> folders = Files.list(path).toList();
+            File textField;
+            File textArea;
+            List<File> files;
+            for (Path p : folders) {
+
+                //вместо имени файла, нужно содержимое
+                textField = new File(p.resolve("textField.txt").toUri());
+                textArea = new File(p.resolve("textArea.txt").toUri());
+
+
+                System.out.println(textArea.getAbsolutePath() + " " +
+                        textField.getAbsolutePath());
+                ArrayList<File> images = new ArrayList<>();
+                Path imgPath = p.resolve(Paths.get("Images"));
+                System.out.println(imgPath);
+                try {
+                    List<Path> paths = Files.walk(imgPath)
+                            .filter(Files::isRegularFile)
+                            .filter(p1 -> p1.toString().endsWith(".jpg") || p1.toString().endsWith(".png"))
+                            .collect(Collectors.toList());
+
+                    files = new ArrayList<File>();
+                    for (Path path1 : paths) {
+                        files.add(path1.toFile());
+                        System.out.println(path1);
+                    }
+
+                    String textFieldContents = null;
+                    String textAreaContents = null;
+                    try {
+
+                        BufferedReader textAreaBR = new BufferedReader(new InputStreamReader(new FileInputStream(textArea)));
+                        BufferedReader textFieldBR = new BufferedReader(new InputStreamReader(new FileInputStream(textField)));
+
+                        StringBuilder textAreaSB = new StringBuilder();
+                        StringBuilder textFieldSB = new StringBuilder();
+                        String textAreaLine;
+                        String textFieldLine;
+
+                        while ((textAreaLine = textAreaBR.readLine()) != null) {
+                            textAreaSB.append(textAreaLine).append("\n");
+                        }
+                        while ((textFieldLine = textFieldBR.readLine()) != null) {
+                            textFieldSB.append(textFieldLine).append("\n");
+                        }
+
+                        textAreaContents = textAreaSB.toString();
+                        textFieldContents = textFieldSB.toString();
+
+
+                        textAreaBR.close(); // не забудьте закрыть поток
+                        textFieldBR.close(); // не забудьте закрыть поток
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                    //todo не АААААААААААААА!
+                    list.add(new MyObject(textAreaContents, textFieldContents, images));
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+            //для каждого пути найти файлы и создать MyObject
+            //создать text и приравнять
+
+            return list;
+            //end
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -10,6 +10,30 @@ public class MyObject implements Serializable {
     String textArea ;
     ArrayList<File> listOfImages;
 
+    public String getTextField() {
+        return textField;
+    }
+
+    public void setTextField(String textField) {
+        this.textField = textField;
+    }
+
+    public String getTextArea() {
+        return textArea;
+    }
+
+    public void setTextArea(String textArea) {
+        this.textArea = textArea;
+    }
+
+    public ArrayList<File> getListOfImages() {
+        return listOfImages;
+    }
+
+    public void setListOfImages(ArrayList<File> listOfImages) {
+        this.listOfImages = listOfImages;
+    }
+
     public MyObject() {
         this.textField = "НЕПустое сообщение";
         this.textArea = "Пустое сообщение";

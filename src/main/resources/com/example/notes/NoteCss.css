@@ -190,6 +190,74 @@
 }
 
 
+
+
+/*vbox*/
+#vboxList{
+    -fx-background-radius: 0;
+    -fx-background-color: #2B2B2E;
+    background-color: #2B2B2E;
+    -fx-border-width: 0;
+    border-width: 0;
+    -fx-padding: 0;
+    padding: 0;
+}
+/*#vboxList .scroll-bar{
+    -fx-background-insets: 0 -1 0 0;
+}
+#vboxList .scroll-bar .thumb{
+    -fx-background-insets: 0 3 0 2;
+}
+#vboxList:hover{
+    -fx-border-color: #3E3E40;
+    border-color: #3E3E40;
+    -fx-padding: 0;
+    padding: 0;
+    -fx-background-insets: 1 1 0 1;
+}
+#vboxList:focused{
+    -fx-background-color: #1A1A1A;
+    background-color: #1A1A1A;
+    -fx-border-color: #4e4e4e;
+    border-color: #4e4e4e;
+    -fx-padding: 0 0 1 0;
+    padding: 0 0 1 0;
+    -fx-background-insets: 0;
+}
+/*scrollPane*/
+/*
+.scrollPane{
+    -fx-background-radius: 0;
+    -fx-background-color: #1A1A1A;
+    background-color: #1A1A1A;
+    -fx-border-width: 0;
+    border-width: 0;
+    -fx-padding: 0;
+    padding: 0;
+}
+.scrollPane .scroll-bar{
+    -fx-background-insets: 0 -1 0 0;
+}
+.scrollPane .scroll-bar .thumb{
+    -fx-background-insets: 0 3 0 2;
+}
+.scrollPane:hover{
+    -fx-border-color: #3E3E40;
+    border-color: #3E3E40;
+    -fx-padding: 0;
+    padding: 0;
+    -fx-background-insets: 1 1 0 1;
+}
+.scrollPane:focused{
+    -fx-background-color: #1A1A1A;
+    background-color: #1A1A1A;
+    -fx-border-color: #4e4e4e;
+    border-color: #4e4e4e;
+    -fx-padding: 0 0 1 0;
+    padding: 0 0 1 0;
+    -fx-background-insets: 0;
+}
+
 /* Button */
 .button{
     -fx-background-radius: 0;
@@ -389,8 +457,8 @@
     -fx-border-width: 0;
     border-width: 0;
     -fx-text-fill: #AFB1B3;
-    -fx-background-color: #1A1A1A;
-    background-color: #1A1A1A;
+    -fx-background-color: #2D2D30;
+    background-color: #2D2D30;
 }
 .menu-item:hover {
     -fx-background-color: #3E3E40;

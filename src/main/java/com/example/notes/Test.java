@@ -15,6 +15,7 @@ public class Test extends Application {
 
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("notePreviewNoNeeded.fxml"));
         Scene scene = new Scene(fxmlloader.load());
+
         primaryStage.setScene(scene);
         primaryStage.setTitle("Start");
         primaryStage.show();
