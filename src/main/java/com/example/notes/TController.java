@@ -1,9 +1,10 @@
 package com.example.notes;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -84,20 +85,46 @@ public class TController {
 
     }
 ArrayList<MyObject> array = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes"));
+
+
     @FXML
     void initialize() {
         vboxList.prefWidthProperty().bind(scrollPane.widthProperty());
         vboxList.prefHeightProperty().bind(scrollPane.heightProperty());
         vboxList.setAlignment(Pos.TOP_CENTER);
 
+        ArrayList<SimpleStringProperty> property = new ArrayList<>();
+        ArrayList<Button> listOfButtons = new ArrayList<>();
+        for (MyObject m : array) {
+            Button b = new Button();
 
-        vboxList.getChildren().addAll(array.stream().map(o->new Button(o.textField)).collect(Collectors.toList()));
-        //vboxList.getChildren().setAll();
+            StringProperty stringProperty = new SimpleStringProperty(m.textField);
+            b.textProperty().bindBidirectional(stringProperty);
+            stringProperty.addListener((observable, oldValue, newValue) -> {
+                b.setText(newValue);
+            });
+            b.setOnAction(actionEvent -> {
+                //System.out.println(b.textProperty().getClass());
+                for (MyObject a : array) {
+                    System.out.println(a.textField);
+                }
+                System.out.println("button = " + b.getText());
+            });
 
+            listOfButtons.add(b);
+
+            property.add(new SimpleStringProperty(m.textField));
+        }
+
+        vboxList.getChildren().addAll(listOfButtons);
+//        System.out.println("1st list of buttons"+listOfButtons.get(1));
+//        System.out.println("1st list of buttons.getText()"+listOfButtons.get(1).getText());
+
+
+        array.forEach(array -> System.out.println("элемент.getTextField()= {" + array.getTextField() + "}"));
 
         vboxList.setSpacing(10.2);
         scrollPane.setContent(vboxList);
-
 
 
     }
@@ -148,15 +175,19 @@ ArrayList<MyObject> array = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProject
                         String textFieldLine;
 
                         while ((textAreaLine = textAreaBR.readLine()) != null) {
+
+
                             textAreaSB.append(textAreaLine).append("\n");
                         }
                         while ((textFieldLine = textFieldBR.readLine()) != null) {
-                            textFieldSB.append(textFieldLine).append("\n");
+                            textFieldSB.append(textFieldLine); //.append("\n");
                         }
+
+                        // в textField есть пустые строчки
 
                         textAreaContents = textAreaSB.toString();
                         textFieldContents = textFieldSB.toString();
-
+                        textFieldContents = textFieldContents.replace("\n", "").trim();
 
                         textAreaBR.close(); // не забудьте закрыть поток
                         textFieldBR.close(); // не забудьте закрыть поток
@@ -166,7 +197,6 @@ ArrayList<MyObject> array = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProject
 
                     //todo не АААААААААААААА!
                     list.add(new MyObject(textAreaContents, textFieldContents, images));
-
 
                 } catch (IOException e) {
                     e.printStackTrace();
