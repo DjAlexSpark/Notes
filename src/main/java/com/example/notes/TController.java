@@ -84,7 +84,7 @@ public class TController {
     void onActionSaveAndExit(ActionEvent event) {
 
     }
-ArrayList<MyObject> array = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes"));
+    ArrayList<MyObject> array = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes"));
 
 
     @FXML
@@ -137,6 +137,7 @@ ArrayList<MyObject> array = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProject
             List<Path> folders = Files.list(path).toList();
             File textField;
             File textArea;
+
             List<File> files;
             for (Path p : folders) {
 
@@ -164,18 +165,19 @@ ArrayList<MyObject> array = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProject
 
                     String textFieldContents = null;
                     String textAreaContents = null;
-                    try {
+                    //чтение файла для java 8
+                    /*try {
 
                         BufferedReader textAreaBR = new BufferedReader(new InputStreamReader(new FileInputStream(textArea)));
                         BufferedReader textFieldBR = new BufferedReader(new InputStreamReader(new FileInputStream(textField)));
 
                         StringBuilder textAreaSB = new StringBuilder();
                         StringBuilder textFieldSB = new StringBuilder();
+
                         String textAreaLine;
                         String textFieldLine;
 
                         while ((textAreaLine = textAreaBR.readLine()) != null) {
-
 
                             textAreaSB.append(textAreaLine).append("\n");
                         }
@@ -183,19 +185,18 @@ ArrayList<MyObject> array = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProject
                             textFieldSB.append(textFieldLine); //.append("\n");
                         }
 
-                        // в textField есть пустые строчки
-
                         textAreaContents = textAreaSB.toString();
                         textFieldContents = textFieldSB.toString();
-                        textFieldContents = textFieldContents.replace("\n", "").trim();
 
                         textAreaBR.close(); // не забудьте закрыть поток
                         textFieldBR.close(); // не забудьте закрыть поток
                     } catch (Exception ex) {
                         ex.printStackTrace();
-                    }
-
+                    }*/
+                    textAreaContents=Files.readString(p.resolve("textArea.txt"));
+                    textFieldContents=Files.readString(p.resolve("textField.txt"));
                     //todo не АААААААААААААА!
+                    System.out.println(textAreaContents+textFieldContents);
                     list.add(new MyObject(textAreaContents, textFieldContents, images));
 
                 } catch (IOException e) {
