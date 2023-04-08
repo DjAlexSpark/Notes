@@ -16,11 +16,8 @@ import java.util.stream.Collectors;
 public class Test extends Application {
 
     public static void main(String[] args) {
-        ArrayList<MyObject> arrayList;
-        //launch(args);
-        arrayList = new ArrayList();
-        arrayList=getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes"));
-        System.out.println();
+        launch(args);
+
     }
     ArrayList<MyObject> arrayList;
     @Override

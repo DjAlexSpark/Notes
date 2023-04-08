@@ -93,18 +93,10 @@ public class TController {
         vboxList.prefHeightProperty().bind(scrollPane.heightProperty());
         vboxList.setAlignment(Pos.TOP_CENTER);
 
-        ArrayList<SimpleStringProperty> property = new ArrayList<>();
         ArrayList<Button> listOfButtons = new ArrayList<>();
         for (MyObject m : array) {
-            Button b = new Button();
-
-            StringProperty stringProperty = new SimpleStringProperty(m.textField);
-            b.textProperty().bindBidirectional(stringProperty);
-            stringProperty.addListener((observable, oldValue, newValue) -> {
-                b.setText(newValue);
-            });
+            Button b = new Button(m.getTextField());
             b.setOnAction(actionEvent -> {
-                //System.out.println(b.textProperty().getClass());
                 for (MyObject a : array) {
                     System.out.println(a.textField);
                 }
@@ -113,18 +105,18 @@ public class TController {
 
             listOfButtons.add(b);
 
-            property.add(new SimpleStringProperty(m.textField));
+
         }
 
         vboxList.getChildren().addAll(listOfButtons);
-//        System.out.println("1st list of buttons"+listOfButtons.get(1));
-//        System.out.println("1st list of buttons.getText()"+listOfButtons.get(1).getText());
+
 
 
         array.forEach(array -> System.out.println("элемент.getTextField()= {" + array.getTextField() + "}"));
 
         vboxList.setSpacing(10.2);
         scrollPane.setContent(vboxList);
+
 
 
     }
@@ -214,4 +206,7 @@ public class TController {
             throw new RuntimeException(e);
         }
     }
+
+
+
 }
