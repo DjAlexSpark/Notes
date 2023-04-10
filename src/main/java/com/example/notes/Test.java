@@ -28,7 +28,7 @@ public class Test extends Application {
         Scene scene = new Scene(fxmlloader.load());
         TController controller = fxmlloader.getController();
 
-        //controller.setArray(arrayList);
+//        controller.setArray(arrayList);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Start");
         primaryStage.show();

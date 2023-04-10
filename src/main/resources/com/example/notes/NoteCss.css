@@ -189,18 +189,17 @@
     -fx-background-insets: 1;
 }
 
-
-
-
 /*vbox*/
 #vboxList{
     -fx-background-radius: 0;
     -fx-background-color: #2B2B2E;
     background-color: #2B2B2E;
     -fx-border-width: 0;
+    -fx-border-color: black;
     border-width: 0;
     -fx-padding: 0;
     padding: 0;
+    }
 }
 /*#vboxList .scroll-bar{
     -fx-background-insets: 0 -1 0 0;

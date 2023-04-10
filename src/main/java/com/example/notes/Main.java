@@ -14,29 +14,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 public class Main extends Application {
 
-
     public static void main(String[] args) {
-        System.setProperty("javafx.debug.trace", "true");
         launch(args);
+
     }
-    ArrayList arrayList = new ArrayList();
-    Path path = Path.of("src/main/resources/MyNotes");
+    ArrayList<MyObject> arrayList;
     @Override
     public void start(Stage primaryStage) throws Exception {
+        arrayList = new ArrayList();
+        arrayList=getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes"));
         FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("1stPage.fxml"));
         Scene scene = new Scene(fxmlloader.load());
         Controller controller = fxmlloader.getController();
-        controller.setArrayList(getMyObjectsFrom(path));
+        controller.setArrayList(arrayList);
+
+        primaryStage.sizeToScene();
         primaryStage.setScene(scene);
         primaryStage.setTitle("Start");
         primaryStage.show();
 
     }
     public static ArrayList<MyObject> getMyObjectsFrom(Path path) {
+        //begin
         try {
+            //path = path.of(\\MyNotes)
             ArrayList<MyObject> list = new ArrayList<>();
 
             List<Path> folders = Files.list(path).toList();

@@ -1,11 +1,6 @@
 package com.example.notes;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -15,18 +10,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
+
+import static com.example.notes.Main.getMyObjectsFrom;
 
 
 public class Controller {
@@ -41,25 +31,39 @@ public class Controller {
     private BorderPane borderPane;
 
     @FXML
-    private MenuItem closeButton;
-
-    @FXML
     private MenuItem deleteButton;
 
     @FXML
     private MenuBar menuBar;
 
     @FXML
-    private MenuItem saveAndExitButton;
+    private ScrollPane scrollPane;
 
     @FXML
-    private ScrollPane scrollPane;
+    private MenuItem sendMessageButton;
 
     @FXML
     private VBox vboxList;
 
     @FXML
     private VBox vboxTop;
+
+
+    @FXML
+    void onActionAddImage(ActionEvent event){
+    }
+    @FXML
+    void onActionSaveAndExit(ActionEvent event){
+    }
+    @FXML
+    void closeNote(ActionEvent event){
+    }
+    @FXML
+    void deleteNote(ActionEvent event){
+    }
+    @FXML
+        void aboutNote(ActionEvent event){
+    }
 
     @FXML
     void sendMessageMethod(ActionEvent event) {
@@ -96,87 +100,56 @@ public class Controller {
 
     @FXML
     private ListView<String> listView;
-    ArrayList<MyObject> arrayList;
+    ArrayList<MyObject> arrayList = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes"));
 
-    public ArrayList<MyObject> getArrayList() {
-        return arrayList;
-    }
-
-    public void setArrayList(ArrayList<MyObject> arrayList) {
-        this.arrayList = arrayList;
-    }
-
-    ObservableList<String> observableList = FXCollections.observableArrayList();
     @FXML
     void initialize() {
         vboxList.prefWidthProperty().bind(scrollPane.widthProperty());
         vboxList.prefHeightProperty().bind(scrollPane.heightProperty());
         vboxList.setAlignment(Pos.TOP_CENTER);
-
-        ArrayList<Button> listOfButtons = new ArrayList<>();
-        for (MyObject m : arrayList) {
-            Button b = new Button(m.getTextField());
+        //ArrayList<Button> listOfButtons = new ArrayList<>();
+        Map<MyObject,Button> mapOfButtons = new HashMap<>();
+        for (int i = 0; i < arrayList.size(); i++) {
+            Button b = new Button(arrayList.get(i).getTextField());
+            b.setPrefWidth(200);
+            b.setPrefHeight(100);
+            String s = "";
+            b.setUserData(s);
             b.setOnAction(actionEvent -> {
-                openSelectedItem(m);
+                System.out.println("нажал ");
+                for (MyObject a : arrayList) {
+                    System.out.println(a.textField);
+                }
+
+                System.out.println(b.getUserData());
             });
-            listOfButtons.add(b);
+            vboxList.getChildren().add(b);
         }
 
-        vboxList.getChildren().addAll(listOfButtons);
+
+        //vboxList.getChildren().addAll(listOfButtons);
+
+
 
         arrayList.forEach(array -> System.out.println("элемент.getTextField()= {" + array.getTextField() + "}"));
 
         vboxList.setSpacing(10.2);
         scrollPane.setContent(vboxList);
-    }
 
 
-
-    private void openSelectedItem(MyObject myObject) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Note.fxml"));
-
-            Scene scene = new Scene(fxmlLoader.load());//,450,250
-            Stage stage = new Stage(StageStyle.DECORATED);
-
-            NoteController controller = fxmlLoader.getController();
-            System.out.println("Before controller.setStrings()");
-
-            controller.setStrings(myObject);
-            controller.setStage(stage);
-            controller.setMyObject(myObject);
-
-            stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
-            stage.setTitle("Заметка");
-            stage.setScene(scene);
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent windowEvent) {
-                    myObject.textArea = controller.getTextArea().getText();
-                    myObject.textField = controller.getTextField().getText();
-                }
-            });
-            stage.showAndWait();
-            myObject.textArea = controller.getTextArea().getText();
-            myObject.textField = controller.getTextField().getText();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 
 
 
+    public void setArrayList(ArrayList<MyObject> arrayList) {
+        this.arrayList = arrayList;
+        System.out.println("setArrayList");
+    }
 
-
-
-
-
-
-
-
-
+    public ArrayList getArrayList() {
+        return this.arrayList;
+    }
 }
 
 
