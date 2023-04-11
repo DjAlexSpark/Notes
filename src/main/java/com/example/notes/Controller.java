@@ -117,10 +117,9 @@ public class Controller {
             b.setUserData(s);
             b.setOnAction(actionEvent -> {
                 System.out.println("нажал ");
-                for (MyObject a : arrayList) {
-                    System.out.println(a.textField);
-                }
-
+//                for (MyObject a : arrayList) {
+//                    System.out.println(a.textField);
+//                }
                 System.out.println(b.getUserData());
             });
             vboxList.getChildren().add(b);
