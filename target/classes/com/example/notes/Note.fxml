@@ -47,7 +47,10 @@
    <bottom>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane fx:id="scrollPane" fitToWidth="true" vbarPolicy="NEVER" />
+            <ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="true" vbarPolicy="NEVER">
+               <content>
+                  <HBox fx:id="hboxforContent" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
+               </content></ScrollPane>
             <HBox fx:id="hboxForButtons" alignment="CENTER_RIGHT" fillHeight="false" prefHeight="36.0" prefWidth="600.0">
                <children>
                   <Button fx:id="buttonFolder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionOpenFolder" text="Open Folder">

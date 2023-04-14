@@ -107,20 +107,39 @@ public class Controller {
         vboxList.prefWidthProperty().bind(scrollPane.widthProperty());
         vboxList.prefHeightProperty().bind(scrollPane.heightProperty());
         vboxList.setAlignment(Pos.TOP_CENTER);
+        vboxList.widthProperty().addListener((observable -> {
+
+        }));
         //ArrayList<Button> listOfButtons = new ArrayList<>();
         Map<MyObject,Button> mapOfButtons = new HashMap<>();
         for (int i = 0; i < arrayList.size(); i++) {
+            MyObject obj = arrayList.get(i);
             Button b = new Button(arrayList.get(i).getTextField());
-            b.setPrefWidth(200);
-            b.setPrefHeight(100);
+            b.prefWidthProperty().bind(vboxList.widthProperty().multiply(0.8));
+            b.setPrefHeight(50);
             String s = "";
             b.setUserData(s);
             b.setOnAction(actionEvent -> {
-                System.out.println("нажал ");
-//                for (MyObject a : arrayList) {
-//                    System.out.println(a.textField);
-//                }
-                System.out.println(b.getUserData());
+
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Note.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load());//,450,250
+                    Stage stage = new Stage();
+                    stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
+                    NoteController controller = fxmlLoader.getController();
+                    stage.setTitle("записка");
+                    stage.setScene(scene);
+                    controller.setStage(stage);
+                    controller.setMyObject(obj);
+                    controller.setStrings(obj);
+                    stage.showAndWait();
+
+                    b.setText(controller.getTextField().getText());
+                    obj.setTextField(controller.getTextField().getText());
+                    obj.setTextArea(controller.getTextArea().getText());
+
+                }catch(IOException e){}
+
             });
             vboxList.getChildren().add(b);
         }
