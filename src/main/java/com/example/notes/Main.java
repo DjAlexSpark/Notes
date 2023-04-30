@@ -4,9 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,27 +17,48 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Main extends Application {
-
+    ArrayList<MyObject> arrayList;
+    Path path = Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes");
     public static void main(String[] args) {
         launch(args);
 
     }
-    ArrayList<MyObject> arrayList;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
-        arrayList = new ArrayList();
-        arrayList=getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes"));
-        FXMLLoader fxmlloader = new FXMLLoader(getClass().getResource("1stPage.fxml"));
-        Scene scene = new Scene(fxmlloader.load());
-        Controller controller = fxmlloader.getController();
-        controller.setArrayList(arrayList);
 
-        primaryStage.sizeToScene();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("1stPage.fxml"));
+        loader.setControllerFactory(new Callback<Class<?>, Object>() {
+            @Override
+            public Object call(Class<?> clazz) {
+                Controller controller = new Controller();
+                controller.setArrayList(arrayList);
+                return controller;
+            }
+        });
+
+        Scene scene = new Scene(loader.load());
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Start");
         primaryStage.show();
 
     }
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+        arrayList=getMyObjectsFrom(path);
+        //todo find Notes, if no - create objectives
+
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        writeMyObjectsTo(arrayList,Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\TryMyNotes"));
+        //todo save array
+
+    }
+
     public static ArrayList<MyObject> getMyObjectsFrom(Path path) {
         //begin
         try {
@@ -121,5 +144,31 @@ public class Main extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static boolean writeMyObjectsTo(ArrayList<MyObject> arrayList, Path path){
+        boolean isSaved = false;
+        try {
+            //Files.deleteIfExists(path);
+            for (int i = 0; i < arrayList.size(); i++) {
+                Path currentFile = Files.createDirectory(path.resolve(String.valueOf(i)));
+                Files.write(currentFile.resolve("textField.txt"),arrayList.get(i).getTextField().getBytes(StandardCharsets.UTF_8));
+                Files.write(currentFile.resolve("textArea.txt"),arrayList.get(i).getTextArea().getBytes(StandardCharsets.UTF_8));
+                try {
+                    ArrayList<File> imageList = arrayList.get(i).getListOfImages();
+                    Path imagesPath =Files.createDirectory(currentFile.resolve("Images"));
+                    for (File o : imageList) {
+//                        Files.write(imagesPath,o.биты???);
+//                          todo нужны биты для изображений и хранить их содержимое надо там вместе с названием
+                    }
+                    } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return isSaved;
     }
 }

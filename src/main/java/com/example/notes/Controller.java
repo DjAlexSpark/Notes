@@ -100,8 +100,8 @@ public class Controller {
 
     @FXML
     private ListView<String> listView;
-    ArrayList<MyObject> arrayList = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes"));
-
+//    ArrayList<MyObject> arrayList = getMyObjectsFrom(Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes"));
+    ArrayList <MyObject>arrayList = null;
     @FXML
     void initialize() {
         vboxList.prefWidthProperty().bind(scrollPane.widthProperty());
@@ -111,7 +111,7 @@ public class Controller {
 
         }));
         //ArrayList<Button> listOfButtons = new ArrayList<>();
-        Map<MyObject,Button> mapOfButtons = new HashMap<>();
+//        Map<MyObject,Button> mapOfButtons = new HashMap<>();
         for (int i = 0; i < arrayList.size(); i++) {
             MyObject obj = arrayList.get(i);
             Button b = new Button(arrayList.get(i).getTextField());
