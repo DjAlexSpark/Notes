@@ -1,19 +1,26 @@
 package com.example.notes;
 
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Main extends Application {
@@ -61,15 +68,16 @@ public class Main extends Application {
 
     public static ArrayList<MyObject> getMyObjectsFrom(Path path) {
         //begin
-        try {
+
             //path = path.of(\\MyNotes)
             ArrayList<MyObject> list = new ArrayList<>();
 
+        try {
             List<Path> folders = Files.list(path).toList();
             File textField;
             File textArea;
 
-            List<File> files;
+            List<File> files = new ArrayList<File>();
             for (Path p : folders) {
 
                 //вместо имени файла, нужно содержимое
@@ -79,7 +87,7 @@ public class Main extends Application {
 
                 System.out.println(textArea.getAbsolutePath() + " " +
                         textField.getAbsolutePath());
-                ArrayList<File> images = new ArrayList<>();
+                ArrayList<Image> images = new ArrayList<>();
                 Path imgPath = p.resolve(Paths.get("Images"));
                 System.out.println(imgPath);
                 try {
@@ -88,45 +96,19 @@ public class Main extends Application {
                             .filter(p1 -> p1.toString().endsWith(".jpg") || p1.toString().endsWith(".png"))
                             .collect(Collectors.toList());
 
-                    files = new ArrayList<File>();
+
                     for (Path path1 : paths) {
                         files.add(path1.toFile());
-                        System.out.println(path1);
+                        System.out.println("изображение: " + path1);
+                        images.add(new Image(path1.toString()));
                     }
 
                     String textFieldContents = null;
                     String textAreaContents = null;
-                    //чтение файла для java 8
-                    /*try {
 
-                        BufferedReader textAreaBR = new BufferedReader(new InputStreamReader(new FileInputStream(textArea)));
-                        BufferedReader textFieldBR = new BufferedReader(new InputStreamReader(new FileInputStream(textField)));
-
-                        StringBuilder textAreaSB = new StringBuilder();
-                        StringBuilder textFieldSB = new StringBuilder();
-
-                        String textAreaLine;
-                        String textFieldLine;
-
-                        while ((textAreaLine = textAreaBR.readLine()) != null) {
-
-                            textAreaSB.append(textAreaLine).append("\n");
-                        }
-                        while ((textFieldLine = textFieldBR.readLine()) != null) {
-                            textFieldSB.append(textFieldLine); //.append("\n");
-                        }
-
-                        textAreaContents = textAreaSB.toString();
-                        textFieldContents = textFieldSB.toString();
-
-                        textAreaBR.close(); // не забудьте закрыть поток
-                        textFieldBR.close(); // не забудьте закрыть поток
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }*/
                     textAreaContents=Files.readString(p.resolve("textArea.txt"));
                     textFieldContents=Files.readString(p.resolve("textField.txt"));
-                    //todo не АААААААААААААА!
+
                     System.out.println(textAreaContents+textFieldContents);
                     list.add(new MyObject(textAreaContents, textFieldContents, images));
 
@@ -136,11 +118,9 @@ public class Main extends Application {
 
 
             }
-            //для каждого пути найти файлы и создать MyObject
-            //создать text и приравнять
 
             return list;
-            //end
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -150,17 +130,36 @@ public class Main extends Application {
         try {
             //Files.deleteIfExists(path);
             for (int i = 0; i < arrayList.size(); i++) {
-                Path currentFile = Files.createDirectory(path.resolve(String.valueOf(i)));
-                Files.write(currentFile.resolve("textField.txt"),arrayList.get(i).getTextField().getBytes(StandardCharsets.UTF_8));
-                Files.write(currentFile.resolve("textArea.txt"),arrayList.get(i).getTextArea().getBytes(StandardCharsets.UTF_8));
+                Path currentDirectory = path.resolve(String.valueOf(i));
+                if (!Files.exists(currentDirectory)) {
+                    Files.createDirectory(currentDirectory);
+                }
+                Files.write(currentDirectory.resolve("textField.txt"), arrayList.get(i).getTextField().getBytes(StandardCharsets.UTF_8));
+                Files.write(currentDirectory.resolve("textArea.txt"), arrayList.get(i).getTextArea().getBytes(StandardCharsets.UTF_8));
                 try {
-                    ArrayList<File> imageList = arrayList.get(i).getListOfImages();
-                    Path imagesPath =Files.createDirectory(currentFile.resolve("Images"));
-                    for (File o : imageList) {
-//                        Files.write(imagesPath,o.биты???);
-//                          todo нужны биты для изображений и хранить их содержимое надо там вместе с названием
+                    ArrayList<Image> imageList = arrayList.get(i).getListOfImages();
+                    Path imagesPath = currentDirectory.resolve("Images");
+                    if (!Files.exists(imagesPath)) {
+                        Files.createDirectory(imagesPath);
                     }
-                    } catch (Exception e) {
+                    for (Image o : imageList) {
+                        //костыль: получить ImageIO из File
+
+                        File outputFile = new File(o.getUrl());
+                        try (FileOutputStream out = new FileOutputStream(String.valueOf(imagesPath.resolve(outputFile.getName())))) {
+                            BufferedImage bufferedImage =
+
+                                    SwingFXUtils.fromFXImage(o, null);
+                            ImageIO.write(bufferedImage, "jpg", out);
+                            System.out.println("записал изображения");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        Map<String, Image> imagesOfMap = new IdentityHashMap<>();
+                    }
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

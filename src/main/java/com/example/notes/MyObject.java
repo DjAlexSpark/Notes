@@ -1,14 +1,15 @@
 package com.example.notes;
 
-import java.io.File;
+import javafx.scene.image.Image;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class MyObject implements Serializable {
 
     String textField;
-    String textArea ;
-    ArrayList<File> listOfImages;
+    String textArea;
+    ArrayList<Image> listOfImages;
 
     public String getTextField() {
         return textField;
@@ -26,12 +27,14 @@ public class MyObject implements Serializable {
         this.textArea = textArea;
     }
 
-    public ArrayList<File> getListOfImages() {
-        return listOfImages;
+    public MyObject(String textField, String textArea, ArrayList<Image> listOfImages) {
+        this.textField = textField;
+        this.textArea = textArea;
+        this.listOfImages = listOfImages;
     }
 
-    public void setListOfImages(ArrayList<File> listOfImages) {
-        this.listOfImages = listOfImages;
+    public ArrayList<Image> getListOfImages() {
+        return listOfImages;
     }
 
     public MyObject() {
@@ -41,11 +44,10 @@ public class MyObject implements Serializable {
 
     }
 
-    public MyObject(String textField, String textArea, ArrayList<File> listOfImages) {
-        this.textField = textField;
-        this.textArea = textArea;
+    public void setListOfImages(ArrayList<Image> listOfImages) {
         this.listOfImages = listOfImages;
     }
+
     public MyObject(String textField, String textArea) {
         this.textField = textField;
         this.textArea = textArea;

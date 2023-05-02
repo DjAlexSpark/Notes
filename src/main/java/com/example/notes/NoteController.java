@@ -3,7 +3,6 @@ package com.example.notes;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,7 +18,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class NoteController {
@@ -205,13 +203,13 @@ public class NoteController {
         this.textField.setText(myObject.textField);
         this.onClosedTextArea.setText(myObject.textArea);
         this.onClosedTextField.setText(myObject.textField);
+        this.arr = myObject.listOfImages;
 
-        //myObject.listOfImages
 
-        for (File i:myObject.listOfImages){
-            arr.add(new ImageView(new Image(i.getAbsolutePath())));
-            //todo чет не то
-        }
+//        for (Image i:myObject.listOfImages){
+//            arr.add(new ImageView(new Image(i.getAbsolutePath())));
+//            //todo чет не то ?????
+//        }
 
     }
 
