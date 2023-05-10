@@ -18,7 +18,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NoteController {
 
@@ -68,7 +68,7 @@ public class NoteController {
     @FXML
     private HBox hboxforContent;
 
-    ArrayList arr = new ArrayList();
+    HashMap<String, Image> arr = new HashMap<>();
 
     @FXML
     void onActionAddImage(ActionEvent event) {
@@ -182,7 +182,7 @@ public class NoteController {
 
                         // узнать что изображение есть
                         //textField.setText(file.toString());
-
+                        //todo здесь импорт изображений из arr(HashMap<String, Image>) в imageView
                         success = true;
                     }
 

@@ -3,13 +3,13 @@ package com.example.notes;
 import javafx.scene.image.Image;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MyObject implements Serializable {
 
     String textField;
     String textArea;
-    ArrayList<Image> listOfImages;
+    HashMap<String, Image> listOfImages;
 
     public String getTextField() {
         return textField;
@@ -27,31 +27,31 @@ public class MyObject implements Serializable {
         this.textArea = textArea;
     }
 
-    public MyObject(String textField, String textArea, ArrayList<Image> listOfImages) {
+    public MyObject(String textField, String textArea, HashMap<String, Image> listOfImages) {
         this.textField = textField;
         this.textArea = textArea;
         this.listOfImages = listOfImages;
-    }
-
-    public ArrayList<Image> getListOfImages() {
-        return listOfImages;
     }
 
     public MyObject() {
         this.textField = "НЕПустое сообщение";
         this.textArea = "Пустое сообщение";
-        this.listOfImages = new ArrayList<>();
+        this.listOfImages = new HashMap<>();
 
-    }
-
-    public void setListOfImages(ArrayList<Image> listOfImages) {
-        this.listOfImages = listOfImages;
     }
 
     public MyObject(String textField, String textArea) {
         this.textField = textField;
         this.textArea = textArea;
-        this.listOfImages = new ArrayList<>();
+        this.listOfImages = new HashMap<>();
+    }
+
+    public HashMap<String, Image> getListOfImages() {
+        return listOfImages;
+    }
+
+    public void setListOfImages(HashMap<String, Image> listOfImages) {
+        this.listOfImages = listOfImages;
     }
 
 }

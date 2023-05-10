@@ -18,7 +18,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.IdentityHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -87,20 +87,21 @@ public class Main extends Application {
 
                 System.out.println(textArea.getAbsolutePath() + " " +
                         textField.getAbsolutePath());
-                ArrayList<Image> images = new ArrayList<>();
+                HashMap<String, Image> images = new HashMap<>();
                 Path imgPath = p.resolve(Paths.get("Images"));
                 System.out.println(imgPath);
                 try {
                     List<Path> paths = Files.walk(imgPath)
                             .filter(Files::isRegularFile)
-                            .filter(p1 -> p1.toString().endsWith(".jpg") || p1.toString().endsWith(".png"))
+                            .filter(p1 -> p1.toString().endsWith(".jpg") || p1.toString().endsWith(".png") || p1.toString().endsWith(".gif"))
                             .collect(Collectors.toList());
 
 
                     for (Path path1 : paths) {
                         files.add(path1.toFile());
                         System.out.println("изображение: " + path1);
-                        images.add(new Image(path1.toString()));
+                        images.put(path1.getFileName().toString(), new Image(path1.toString()));
+
                     }
 
                     String textFieldContents = null;
@@ -137,28 +138,30 @@ public class Main extends Application {
                 Files.write(currentDirectory.resolve("textField.txt"), arrayList.get(i).getTextField().getBytes(StandardCharsets.UTF_8));
                 Files.write(currentDirectory.resolve("textArea.txt"), arrayList.get(i).getTextArea().getBytes(StandardCharsets.UTF_8));
                 try {
-                    ArrayList<Image> imageList = arrayList.get(i).getListOfImages();
+                    HashMap<String, Image> imageMap = arrayList.get(i).getListOfImages();
                     Path imagesPath = currentDirectory.resolve("Images");
                     if (!Files.exists(imagesPath)) {
                         Files.createDirectory(imagesPath);
                     }
-                    for (Image o : imageList) {
-                        //костыль: получить ImageIO из File
 
+                    //todo перебить с листа на HashMap
+                    for (Map.Entry<String, Image> entry : imageMap.entrySet()) {
+                        String name = entry.getKey();
+                        Image o = entry.getValue();
+                        //todo получать расширение файла из name
+                        String extension = name.substring(name.lastIndexOf(".") + 1);
                         File outputFile = new File(o.getUrl());
                         try (FileOutputStream out = new FileOutputStream(String.valueOf(imagesPath.resolve(outputFile.getName())))) {
                             BufferedImage bufferedImage =
-
                                     SwingFXUtils.fromFXImage(o, null);
-                            ImageIO.write(bufferedImage, "jpg", out);
+                            //todo просмотреть этот участок кода перед тем как Запускать!!!!!
+                            ImageIO.write(bufferedImage, extension, out);
                             System.out.println("записал изображения");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
-
-                        Map<String, Image> imagesOfMap = new IdentityHashMap<>();
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
