@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -31,23 +30,60 @@ public class Main extends Application {
 
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("1stPage.fxml"));
-        loader.setControllerFactory(new Callback<Class<?>, Object>() {
-            @Override
-            public Object call(Class<?> clazz) {
-                Controller controller = new Controller();
-                controller.setArrayList(arrayList);
-                return controller;
+    public static boolean writeMyObjectsTo(ArrayList<MyObject> arrayList, Path path) {
+        boolean isSaved = false;
+        if (!Files.exists(path)) {
+            try {
+                Files.createDirectory(path);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        });
+        }
 
-        Scene scene = new Scene(loader.load());
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        try {
+            //Files.deleteIfExists(path);
+            for (int i = 0; i < arrayList.size(); i++) {
+                Path currentDirectory = path.resolve(String.valueOf(i));
+                if (!Files.exists(currentDirectory)) {
+                    Files.createDirectory(currentDirectory);
+                }
+                Files.write(currentDirectory.resolve("textField.txt"), arrayList.get(i).getTextField().getBytes(StandardCharsets.UTF_8));
+                Files.write(currentDirectory.resolve("textArea.txt"), arrayList.get(i).getTextArea().getBytes(StandardCharsets.UTF_8));
+                try {
+                    HashMap<String, Image> imageMap = arrayList.get(i).getListOfImages();
+                    Path imagesPath = currentDirectory.resolve("Images");
+                    if (!Files.exists(imagesPath)) {
+                        Files.createDirectory(imagesPath);
+                    }
 
+                    //todo перебить с листа на HashMap
+                    for (Map.Entry<String, Image> entry : imageMap.entrySet()) {
+                        String name = entry.getKey();
+                        Image o = entry.getValue();
+                        //todo получать расширение файла из name
+                        String extension = name.substring(name.lastIndexOf(".") + 1);
+                        File outputFile = new File(o.getUrl());
+                        try (FileOutputStream out = new FileOutputStream(String.valueOf(imagesPath.resolve(outputFile.getName())))) {
+                            BufferedImage bufferedImage =
+                                    SwingFXUtils.fromFXImage(o, null);
+                            //todo просмотреть этот участок кода перед тем как Запускать!!!!!
+                            ImageIO.write(bufferedImage, extension, out);
+                            System.out.println("записал изображения");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return isSaved;
     }
 
     @Override
@@ -59,10 +95,18 @@ public class Main extends Application {
     }
 
     @Override
-    public void stop() throws Exception {
-        super.stop();
-        writeMyObjectsTo(arrayList,Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\TryMyNotes"));
-        //todo save array
+    public void start(Stage primaryStage) throws Exception {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("1stPage.fxml"));
+        loader.setControllerFactory(clazz -> {
+            Controller controller = new Controller();
+            controller.setArrayList(arrayList);
+            return controller;
+        });
+
+        Scene scene = new Scene(loader.load());
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
     }
 
@@ -126,51 +170,12 @@ public class Main extends Application {
             throw new RuntimeException(e);
         }
     }
-    public static boolean writeMyObjectsTo(ArrayList<MyObject> arrayList, Path path){
-        boolean isSaved = false;
-        try {
-            //Files.deleteIfExists(path);
-            for (int i = 0; i < arrayList.size(); i++) {
-                Path currentDirectory = path.resolve(String.valueOf(i));
-                if (!Files.exists(currentDirectory)) {
-                    Files.createDirectory(currentDirectory);
-                }
-                Files.write(currentDirectory.resolve("textField.txt"), arrayList.get(i).getTextField().getBytes(StandardCharsets.UTF_8));
-                Files.write(currentDirectory.resolve("textArea.txt"), arrayList.get(i).getTextArea().getBytes(StandardCharsets.UTF_8));
-                try {
-                    HashMap<String, Image> imageMap = arrayList.get(i).getListOfImages();
-                    Path imagesPath = currentDirectory.resolve("Images");
-                    if (!Files.exists(imagesPath)) {
-                        Files.createDirectory(imagesPath);
-                    }
 
-                    //todo перебить с листа на HashMap
-                    for (Map.Entry<String, Image> entry : imageMap.entrySet()) {
-                        String name = entry.getKey();
-                        Image o = entry.getValue();
-                        //todo получать расширение файла из name
-                        String extension = name.substring(name.lastIndexOf(".") + 1);
-                        File outputFile = new File(o.getUrl());
-                        try (FileOutputStream out = new FileOutputStream(String.valueOf(imagesPath.resolve(outputFile.getName())))) {
-                            BufferedImage bufferedImage =
-                                    SwingFXUtils.fromFXImage(o, null);
-                            //todo просмотреть этот участок кода перед тем как Запускать!!!!!
-                            ImageIO.write(bufferedImage, extension, out);
-                            System.out.println("записал изображения");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        writeMyObjectsTo(arrayList, Path.of("C:\\Users\\33\\IdeaProjects\\Notes\\src\\main\\resources\\MyNotes"));
+        //todo save array
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return isSaved;
     }
 }

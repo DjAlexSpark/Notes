@@ -11,12 +11,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.*;
-import java.nio.file.Path;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicReference;
-
-import static com.example.notes.Main.getMyObjectsFrom;
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class Controller {
@@ -131,7 +127,7 @@ public class Controller {
                     stage.setScene(scene);
                     controller.setStage(stage);
                     controller.setMyObject(obj);
-                    controller.setStrings(obj);
+
                     stage.showAndWait();
 
                     b.setText(controller.getTextField().getText());

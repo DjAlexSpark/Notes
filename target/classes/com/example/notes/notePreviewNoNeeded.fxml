@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" prefHeight="255.0" prefWidth="298.0" stylesheets="@NoteCss.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notes.TController">
+<BorderPane fx:id="borderPane" prefHeight="255.0" prefWidth="298.0" stylesheets="@NoteCss.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notes.TController">
     <top>
         <VBox fx:id="vboxTop" alignment="CENTER" BorderPane.alignment="CENTER">
             <children>

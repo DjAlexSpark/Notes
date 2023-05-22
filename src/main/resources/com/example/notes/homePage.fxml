@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.BorderPane?>
-
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@homePageCss.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notes.Controller">
-   <bottom>
-      <ButtonBar fx:id="buttonBar" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <buttons>
-          <Button fx:id="buttonPlus" mnemonicParsing="false" onAction="#addNewNote" text="Кнопка +" />
-            <Button fx:id="button4" layoutX="535.0" layoutY="18.0" mnemonicParsing="false" onAction="#button4OnClick" text="Кнопка4" />
-        </buttons>
-         <BorderPane.margin>
-            <Insets right="10.0" />
-         </BorderPane.margin>
-      </ButtonBar>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@homePageCss.css"
+            xmlns="http://javafx.com/javafx/19" fx:controller="com.example.notes.Controller">
+    <bottom>
+        <ButtonBar fx:id="buttonBar" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <buttons>
+                <Button fx:id="buttonPlus" mnemonicParsing="false" onAction="#addNewNote" text="Кнопка +"/>
+                <Button fx:id="button4" layoutX="535.0" layoutY="18.0" mnemonicParsing="false"
+                        onAction="#button4OnClick" text="Кнопка4"/>
+            </buttons>
+            <BorderPane.margin>
+                <Insets right="10.0"/>
+            </BorderPane.margin>
+        </ButtonBar>
    </bottom>
    <center>
       <ListView fx:id="listView" prefHeight="249.0" prefWidth="600.0" BorderPane.alignment="CENTER" />

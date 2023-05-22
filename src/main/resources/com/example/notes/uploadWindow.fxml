@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="382.0" stylesheets="@uploadWindowCss.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notes.UploadController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="172.0" prefWidth="382.0" stylesheets="@uploadWindowCss.css"
+          xmlns="http://javafx.com/javafx/19" fx:controller="com.example.notes.UploadController">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="102.0" minWidth="10.0" prefWidth="100.0" />
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="99.0" />
-        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="88.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="102.0" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="99.0"/>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="93.0" minWidth="10.0" prefWidth="88.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="159.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="123.0" minHeight="2.0" prefHeight="35.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="186.0" minHeight="4.0" prefHeight="46.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="159.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="123.0" minHeight="2.0" prefHeight="35.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="186.0" minHeight="4.0" prefHeight="46.0" vgrow="SOMETIMES"/>
         <RowConstraints maxHeight="149.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>

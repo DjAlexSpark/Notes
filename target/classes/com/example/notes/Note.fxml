@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane fx:id="borderPane" stylesheets="@NoteCss.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notes.NoteController">
+<BorderPane fx:id="borderPane" stylesheets="@NoteCss.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.notes.NoteController">
    <top>
       <VBox fx:id="vboxTop" BorderPane.alignment="CENTER">
          <children>
@@ -45,13 +45,13 @@
       <TextArea fx:id="textArea" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox prefHeight="157.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <ScrollPane fx:id="scrollPane" fitToWidth="true" pannable="true" vbarPolicy="NEVER">
                <content>
-                  <HBox fx:id="hboxforContent" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" />
+                  <HBox fx:id="hboxforContent" alignment="CENTER_LEFT" prefHeight="125.0" prefWidth="600.0" />
                </content></ScrollPane>
-            <HBox fx:id="hboxForButtons" alignment="CENTER_RIGHT" fillHeight="false" prefHeight="36.0" prefWidth="600.0">
+            <HBox fx:id="hboxForButtons" alignment="CENTER_RIGHT" fillHeight="false" prefHeight="29.0" prefWidth="600.0">
                <children>
                   <Button fx:id="buttonFolder" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onActionOpenFolder" text="Open Folder">
                      <HBox.margin>
