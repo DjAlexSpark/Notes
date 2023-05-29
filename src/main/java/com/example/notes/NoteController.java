@@ -121,8 +121,8 @@ public class NoteController {
         this.myObject = myObject;
         this.textArea.setText(myObject.getTextArea());
         this.textField.setText(myObject.getTextField());
-        this.onClosedTextArea.setText(myObject.textArea);
-        this.onClosedTextField.setText(myObject.textField);
+        this.onClosedTextArea.setText(myObject.getTextArea());
+        this.onClosedTextField.setText(myObject.getTextField());
         try {
             if (!myObject.listOfImages.isEmpty()) {
                 for (Map.Entry<String, Image> entry : myObject.listOfImages.entrySet()) {

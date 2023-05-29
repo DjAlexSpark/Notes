@@ -1,91 +1,47 @@
 package com.example.notes.Remote;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import com.example.notes.MyObject;
+
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
-public class Server extends Thread{
-    private int Port;
-    private String IP;
-    private String HostAddress;
+public class Server extends Thread {
+    private ArrayList<MyObject> arrayList;
 
-    public String getHostAddress() {
-        return HostAddress;
-    }
-
-    public void setHostAddress(String hostAddress) {
-        HostAddress = hostAddress;
-    }
+    private int port;
 
     public int getPort() {
-        return Port;
+        return port;
     }
 
-    public void setPort(int port) {
-        Port = port;
+    public Server(ArrayList<MyObject>arrayList, int port) {
+        this.arrayList = arrayList;
+        this.port = port;
     }
 
-    public String getIP() {
-        return IP;
-    }
-
-    public void setIP(String IP) {
-        this.IP = IP;
-    }
-
-
-    @Override
     public void run() {
-        System.out.println("Стартовал");
-
-        try(ServerSocket serverSocket = new ServerSocket(Port)){
+        try {
+            ServerSocket serverSocket = new ServerSocket(port);
             Socket socket = serverSocket.accept();
-            System.out.println("Connection acepted");
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            DataInputStream in = new DataInputStream(socket.getInputStream());
-            while(!socket.isClosed()){
-                System.out.println("Server reading from chanel");
-                String entry = in.readUTF();
-                System.out.println("Read from client message - "+entry);
-                System.out.println("server try writing to channel");
-                if(entry.equalsIgnoreCase("quit")){
-                    System.out.println("Client initialize connections suicide ...");
-                    out.writeUTF("Server reply - "+entry+" - OK");
-                    out.flush();
-                    Thread.sleep(3000);
-                    break;
-                }
-                out.writeUTF("Server reply - "+entry + " - OK");
-                System.out.println("Server Wrote message to client.");
 
-// освобождаем буфер сетевых сообщений (по умолчанию сообщение не сразу отправляется в сеть, а сначала накапливается в специальном буфере сообщений, размер которого определяется конкретными настройками в системе, а метод  - flush() отправляет сообщение не дожидаясь наполнения буфера согласно настройкам системы
-                out.flush();
+            ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 
-            }
+            // Получаем список MyObject от клиента
+            arrayList = (ArrayList<MyObject>) in.readObject();
 
-// если условие выхода - верно выключаем соединения
-            System.out.println("Client disconnected");
-            System.out.println("Closing connections & channels.");
+            out.writeObject("Список успешно получен на сервере.");
 
-            // закрываем сначала каналы сокета !
-            in.close();
-            out.close();
-
-            // потом закрываем сам сокет общения на стороне сервера!
-            socket.close();
-
-            // потом закрываем сокет сервера который создаёт сокеты общения
-            // хотя при многопоточном применении его закрывать не нужно
-            // для возможности поставить этот серверный сокет обратно в ожидание нового подключения
-
-            System.out.println("Closing connections & channels - DONE.");
-            } catch (IOException | InterruptedException ex) {
-            ex.printStackTrace();
-            }finally{
-            System.out.println("server ends");
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
-
     }
+
 }

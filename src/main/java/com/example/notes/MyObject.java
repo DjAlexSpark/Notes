@@ -7,9 +7,9 @@ import java.util.HashMap;
 
 public class MyObject implements Serializable {
 
-    String textField;
-    String textArea;
-    HashMap<String, Image> listOfImages;
+    private String textField;
+    private String textArea;
+    transient  HashMap<String, Image> listOfImages;
 
     public String getTextField() {
         return textField;

@@ -93,7 +93,7 @@ public class TController {
 
     private void addMyObject(MyObject myObject) {
         arrayList.add(myObject);
-        listView.getItems().add(myObject.textField);
+        listView.getItems().add(myObject.getTextField());
     }
 
     @FXML

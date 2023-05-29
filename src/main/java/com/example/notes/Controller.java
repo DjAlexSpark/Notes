@@ -68,6 +68,8 @@ public class Controller {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("uploadWindow.fxml"));
             Scene scene = new Scene(fxmlLoader.load());//,450,250
             Stage stage = new Stage();
+            UploadController uploadController = fxmlLoader.getController();
+            uploadController.setArrayList(this.arrayList);
             stage.initModality(Modality.APPLICATION_MODAL);//не дает обратиться назад
             stage.setTitle("Синхронизация с сервером");
             stage.setScene(scene);
@@ -85,7 +87,7 @@ public class Controller {
 
     private void addMyObject(MyObject myObject) {
         arrayList.add(myObject);
-        listView.getItems().add(myObject.textField);
+        listView.getItems().add(myObject.getTextField());
     }
 
     @FXML
