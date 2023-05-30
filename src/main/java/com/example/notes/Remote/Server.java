@@ -17,7 +17,10 @@ public class Server extends Thread {
     public int getPort() {
         return port;
     }
-
+    public Server(int port) {
+        this.arrayList = new ArrayList<MyObject>();
+        this.port = port;
+    }
     public Server(ArrayList<MyObject>arrayList, int port) {
         this.arrayList = arrayList;
         this.port = port;
@@ -26,6 +29,7 @@ public class Server extends Thread {
     public void run() {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
+            System.out.println("server starts...");
             Socket socket = serverSocket.accept();
 
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -44,4 +48,31 @@ public class Server extends Thread {
         }
     }
 
+    public void close() {
+        Socket socket = null;
+        try {
+
+            socket = new Socket("127.0.0.1", port);
+
+
+        ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+        ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+
+        out.writeObject(new ArrayList<MyObject>());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }finally {
+            if(!socket.isClosed()){
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    }
+
+    public void setArrayList(ArrayList <MyObject> arrayList) {
+
+    }
 }

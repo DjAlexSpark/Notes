@@ -71,7 +71,9 @@ public class UploadController {
         System.out.println("pressed");
     //стартуем сервер и меняем название кнопки на отключить
         if(isNotOnline) {
-            //server = new Server(arrayList, server.getPort());
+            //стартуем сервер
+
+            server.setArrayList(arrayList);
             imageOfStatus.setImage(greenLight);
             launchButton.setText("Остановить");
             IPDestinationField.setDisable(true);
@@ -79,6 +81,8 @@ public class UploadController {
             uploadButton.setDisable(true);
             isNotOnline=false;
         }else {
+            //гасим сервер
+            server.close();
             launchButton.setText("Запуск");
             imageOfStatus.setImage(redLight);
             IPDestinationField.setDisable(false);
@@ -98,6 +102,7 @@ public class UploadController {
 
     @FXML
     void initialize() {
+        server= new Server(5000);
 //todo переписать контроллер на новый сервер
 
 //        launchButton.setDisable(true);
