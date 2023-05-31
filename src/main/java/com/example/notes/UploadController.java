@@ -14,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -66,14 +68,38 @@ public class UploadController {
 
     Image redLight =new Image(getClass().getResource("status_image/Red.png").toString());
     Image greenLight =new Image(getClass().getResource("status_image/Green.png").toString());
+
+    ServerSocket serverSocket;
+    boolean isWorking;
     @FXML
     void launchButtonOnAction(ActionEvent event) {
         System.out.println("pressed");
     //стартуем сервер и меняем название кнопки на отключить
+//        while(isNotOnline){
+//
+//                Thread thread = new Thread() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            serverSocket.accept();
+//
+//                            System.out.println("server accept");
+//                        } catch (IOException e) {
+//                            System.err.println("server IOException");
+//                            throw new RuntimeException(e);
+//                        }
+//                    }
+//                };
+//
+//
+//        }
+
+
         if(isNotOnline) {
             //стартуем сервер
+            System.out.println("ветка true");
 
-            server.setArrayList(arrayList);
+            //server.setArrayList(arrayList);
             imageOfStatus.setImage(greenLight);
             launchButton.setText("Остановить");
             IPDestinationField.setDisable(true);
@@ -82,7 +108,8 @@ public class UploadController {
             isNotOnline=false;
         }else {
             //гасим сервер
-            server.close();
+//            server.close();
+            System.out.println("ветка else");
             launchButton.setText("Запуск");
             imageOfStatus.setImage(redLight);
             IPDestinationField.setDisable(false);
@@ -103,6 +130,12 @@ public class UploadController {
     @FXML
     void initialize() {
         server= new Server(5000);
+        try {
+            serverSocket = new ServerSocket(5000);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+        }
 //todo переписать контроллер на новый сервер
 
 //        launchButton.setDisable(true);
