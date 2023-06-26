@@ -29,6 +29,7 @@ public class Main extends Application {
         launch(args);
 
     }
+    //method to add two numbers
 
     public static boolean writeMyObjectsTo(ArrayList<MyObject> arrayList, Path path) {
         boolean isSaved = false;

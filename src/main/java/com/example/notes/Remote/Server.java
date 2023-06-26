@@ -11,17 +11,22 @@ import java.util.ArrayList;
 
 public class Server extends Thread {
     private ArrayList<MyObject> arrayList;
+    private int port = 64500;
 
-    private int port;
+    public void setPort(int port) {
+        this.port = port;
+    }
 
     public int getPort() {
-        return port;
+        return this.port;
     }
+
     public Server(int port) {
         this.arrayList = new ArrayList<MyObject>();
         this.port = port;
     }
-    public Server(ArrayList<MyObject>arrayList, int port) {
+
+    public Server(ArrayList<MyObject> arrayList, int port) {
         this.arrayList = arrayList;
         this.port = port;
     }
@@ -29,7 +34,7 @@ public class Server extends Thread {
     public void run() {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
-            System.out.println("server starts...");
+            System.out.println("server awaiting incoming client...");
             Socket socket = serverSocket.accept();
 
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
@@ -50,6 +55,7 @@ public class Server extends Thread {
 
     public void close() {
         Socket socket = null;
+        //todo открывается новый сокет, а должен закрываться старый
         try {
 
             socket = new Socket("127.0.0.1", port);
@@ -60,9 +66,12 @@ public class Server extends Thread {
 
         out.writeObject(new ArrayList<MyObject>());
         } catch (IOException e) {
+            System.err.println("server IO exception");
             throw new RuntimeException(e);
         }finally {
+            System.err.println("server finally");
             if(!socket.isClosed()){
+                System.err.println("server is not closed ");
                 try {
                     socket.close();
                 } catch (IOException e) {

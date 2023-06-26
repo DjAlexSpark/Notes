@@ -13,6 +13,10 @@ public class Client extends Thread {
     private String host;
     private int port;
 
+    public Client(String host) {
+        this.host = host;
+    }
+
     public Client(String host, int port) {
         this.host = host;
         this.port = port;
@@ -37,7 +41,7 @@ public class Client extends Thread {
     public void run() {
         try {
             Socket socket = new Socket(host, port);
-
+            System.out.println("socket connected is " + socket.isConnected());
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 

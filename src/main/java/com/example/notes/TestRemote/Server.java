@@ -33,6 +33,7 @@ public class Server {
                             // send a response back to the client
                             NotMyObject response = new NotMyObject("response", 456);
                             out.writeObject(response);
+
                         }
                     } catch (IOException | ClassNotFoundException ex) {
                         ex.printStackTrace();
