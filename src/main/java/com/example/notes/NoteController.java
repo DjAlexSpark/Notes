@@ -138,7 +138,7 @@ public class NoteController {
                             imageView.setSmooth(false);
                             imageView.fitHeightProperty().bind(root.heightProperty());
                             imageView.fitWidthProperty().bind(root.widthProperty());
-                            root.getChildren().addAll(imageView);
+                            root.getChildren().addAll(new ImageView(imageView.getImage()));
 
                             Scene scene = new Scene(root);
                             Stage stage = new Stage();
@@ -211,7 +211,8 @@ public class NoteController {
                                 imageView.setSmooth(false);
                                 imageView.fitHeightProperty().bind(root.heightProperty());
                                 imageView.fitWidthProperty().bind(root.widthProperty());
-                                root.getChildren().addAll(imageView);
+                                root.getChildren().addAll(new ImageView(imageView.getImage()));
+
 
                                 Scene scene = new Scene(root);
                                 Stage stage = new Stage();
@@ -225,7 +226,7 @@ public class NoteController {
                         imageView.setPreserveRatio(true);
                         hboxforContent.getChildren().add(imageView);
 
-                        //todo здесь импорт изображений из arr(HashMap<String, Image>) в imageView
+
                         success = true;
                     }
 
